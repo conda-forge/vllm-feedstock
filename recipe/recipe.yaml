@@ -1,14 +1,6 @@
 context:
   version: "0.10.0"
-  pytorch_version:
-  - if: linux64 and use_cuda
-    then:
-      "2.6.0"
-  - if: arm64 or aarch64
-    then:
-      "2.7.0"
-    else:
-      "2.7.1"
+  pytorch_version: ${{ "2.6.0" if linux64 and use_cuda else "2.7.0" if arm64 or aarch64 else "2.7.1" }}
   use_cuda: ${{ cuda_compiler_version != "None" }}
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
   is_cross_compiling: ${{ build_platform != target_platform }}
