@@ -1,6 +1,7 @@
 context:
   version: "0.10.0"
   pytorch_version: ${{ "2.6.0" if linux64 and use_cuda else "2.7.0" if arm64 or aarch64 else "2.7.1" }}
+  vllm_flash_attn_version: 2.6.2
   use_cuda: ${{ cuda_compiler_version != "None" }}
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
   is_cross_compiling: ${{ build_platform != target_platform }}
@@ -23,8 +24,8 @@ source:
     - patches/0004-Factor-in-the-cmake-args-when-building-e.g.-for-cros.patch
   target_directory: vllm
 # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
-- url: https://github.com/vllm-project/flash-attention/archive/d637d8927a35922ce6f6c0dff6dd3f765ed71f3c.tar.gz
-  sha256: 3099add00c9938735b84319d176c5b239c0165e3f9be6540a7a3505cd897c7cd
+- url: https://github.com/vllm-project/flash-attention/archive/refs/tags/v${{ vllm_flash_attn_version }}.tar.gz
+  sha256: 18667d78282a3355bdffed7af294e5bbe053db1b867a5ca84dae7cd4f1d73513
   target_directory: flash-attention
 
 build:
