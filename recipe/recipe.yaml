@@ -163,7 +163,7 @@ requirements:
     - torchvision ==0.22.1
     - if: linux64
       then:
-      - xformers ==0.0.31  # platform_system == "Linux" and platform_machine == "x86_64"
+      - xformers ==0.0.31.*  # platform_system == "Linux" and platform_machine == "x86_64"
     else:
     - packaging >=24.2
     - torchaudio
