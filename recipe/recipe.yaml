@@ -21,6 +21,9 @@ source:
   - if: is_cross_compiling
     then:
     - patches/0004-Factor-in-the-cmake-args-when-building-e.g.-for-cros.patch
+  - if: aarch64
+    then:
+    - patches/0005-Configure-build-to-target-aarch64-even-though-CMake-.patch
   target_directory: vllm
 # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
 - url: https://github.com/vllm-project/flash-attention/archive/d637d8927a35922ce6f6c0dff6dd3f765ed71f3c.tar.gz
@@ -28,7 +31,7 @@ source:
   target_directory: flash-attention
 
 build:
-  number: 3
+  number: 4
   script:
     - sed -i.bak 's/set(TORCH_SUPPORTED_VERSION_CUDA "2.4.0")/set(TORCH_SUPPORTED_VERSION_CUDA "${{ pytorch_version }}")/g' flash-attention/CMakeLists.txt
     - export VLLM_FLASH_ATTN_SRC_DIR=$SRC_DIR/flash-attention
@@ -38,6 +41,10 @@ build:
     - ln -s $PREFIX/include $SRC_DIR/vllm/third_party/NVTX/c/include
     - export VERBOSE=1
     - export VLLM_TARGET_DEVICE=${{ vllm_target_device }}
+    # CMake is unable to automatically locate the Python include dir for aarch64 for some reason
+    - if: aarch64
+      then:
+      - export CMAKE_ARGS="$CMAKE_ARGS -DPython_INCLUDE_DIR="$(python -c 'import sysconfig; print(sysconfig.get_path("include"))')""
     - ${{ PYTHON }} -m pip install . -vv --no-build-isolation --no-deps
 
   python:
@@ -48,8 +55,8 @@ build:
     - win
     - osx and x86_64
     # conda-forge torchaudio dropped support for Python 3.9 (llvmlite fix only available for Python >=3.10)
-    - match(python, "<3.10")
-    # - match(python, "!=3.12")  # Until the build works
+    # - match(python, "<3.10")
+    - match(python, "!=3.12")  # Until the build works
 
 requirements:
   build:

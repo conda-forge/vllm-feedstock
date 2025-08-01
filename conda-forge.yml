@@ -7,6 +7,7 @@ conda_build:
 conda_forge_output_validation: true
 build_platform:
   osx_arm64: osx_64
+  linux_aarch64: linux_64
 github_actions:
   self_hosted: true
   timeout_minutes: 1200

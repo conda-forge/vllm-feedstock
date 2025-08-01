@@ -1,0 +1,26 @@
+From 49056e431b67064eec4f284a301c92ab26a9dbd8 Mon Sep 17 00:00:00 2001
+From: Sherman Siu <s8siu@uwaterloo.ca>
+Date: Fri, 1 Aug 2025 05:10:59 -0400
+Subject: [PATCH 5/5] Configure build to target aarch64 even though CMake finds
+ x86_64 hardware
+
+---
+ cmake/cpu_extension.cmake | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/cmake/cpu_extension.cmake b/cmake/cpu_extension.cmake
+index fdc03a795..3142a1452 100644
+--- a/cmake/cpu_extension.cmake
++++ b/cmake/cpu_extension.cmake
+@@ -85,6 +85,11 @@ else()
+ endif()
+ 
+ 
++set(ASIMD_FOUND TRUE)
++set(AVX512_FOUND FALSE)
++set(AVX2_FOUND FALSE)
++
++
+ if (AVX512_FOUND AND NOT AVX512_DISABLED)
+     list(APPEND CXX_COMPILE_FLAGS
+         "-mavx512f"
