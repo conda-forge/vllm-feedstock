@@ -30,7 +30,7 @@ source:
     target_directory: flash-attention
 
 build:
-  number: 3
+  number: 4
   string: ${{ string_prefix }}py${{ python | version_to_buildstring }}h${{ hash }}_${{ build_number }}
   script:
     - sed -i.bak 's/set(TORCH_SUPPORTED_VERSION_CUDA "2.4.0")/set(TORCH_SUPPORTED_VERSION_CUDA "${{ pytorch_version }}")/g' flash-attention/CMakeLists.txt
