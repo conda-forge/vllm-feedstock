@@ -22,7 +22,7 @@ source:
         then:
           - patches/0004-Factor-in-the-cmake-args-when-building-e.g.-for-cros.patch
     target_directory: vllm
-# Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
+  # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   - url: https://github.com/vllm-project/flash-attention/archive/d637d8927a35922ce6f6c0dff6dd3f765ed71f3c.tar.gz
     sha256: 3099add00c9938735b84319d176c5b239c0165e3f9be6540a7a3505cd897c7cd
     target_directory: flash-attention
@@ -180,7 +180,7 @@ tests:
   - script:
     - vllm --version
   - script:
-    # Pick an arbitrary test to run: some of the other ones rely on a bunch of external packages
+      # Pick an arbitrary test to run: some of the other ones rely on a bunch of external packages
       - pytest ./vllm/tests/core/test_scheduler.py
     requirements:
       run:
