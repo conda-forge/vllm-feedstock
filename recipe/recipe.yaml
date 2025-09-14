@@ -1,5 +1,5 @@
 context:
-  version: 0.9.2
+  version: "0.10.2"
   use_cuda: ${{ cuda_compiler_version != "None" }}
   pytorch_version: 2.7.1  # The solver refuses to pick up 2.7.0 for some unknown reason
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
@@ -12,26 +12,26 @@ package:
   version: ${{ version }}
 
 source:
-- url: https://pypi.org/packages/source/v/vllm/vllm-${{ version }}.tar.gz
-  sha256: 6b0d855ea8ba18d76364c9b82ea94bfcaa9c9e724055438b5733e4716ed104e1
-  patches:
-  - patches/0001-Search-for-the-CUDA-package-in-CMakeLists.patch
-  - patches/0002-Remove-ninja-pip-requirement.patch
-  - if: linux
-    then:
-    - patches/0003-Manually-define-gettid.patch
-  - if: is_cross_compiling
-    then:
-    - patches/0004-Factor-in-the-cmake-args-when-building-e.g.-for-cros.patch
-  - if: aarch64
-    then:
-    - patches/0005-Configure-build-to-target-aarch64-even-though-CMake-.patch
-  - patches/0006-Use-PyTorch-2.7.0-to-keep-version-number-consistent-.patch
-  target_directory: vllm
+  - url: https://pypi.org/packages/source/v/vllm/vllm-${{ version }}.tar.gz
+    sha256: 57608f44cf61f5d80fb182c98e06e524cb2925bb528258a7b247c8e43a52d13e
+    patches:
+      - patches/0001-Search-for-the-CUDA-package-in-CMakeLists.patch
+      - patches/0002-Remove-ninja-pip-requirement.patch
+      - if: linux
+        then:
+          - patches/0003-Manually-define-gettid.patch
+      - if: is_cross_compiling
+        then:
+          - patches/0004-Factor-in-the-cmake-args-when-building-e.g.-for-cros.patch
+      - if: aarch64
+        then:
+          - patches/0005-Configure-build-to-target-aarch64-even-though-CMake-.patch
+      - patches/0006-Use-PyTorch-2.7.0-to-keep-version-number-consistent-.patch
+    target_directory: vllm
 # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
-- url: https://github.com/vllm-project/flash-attention/archive/1c2624e53c078854e0637ee566c72fe2107e75f4.tar.gz
-  sha256: cca19d7e53af08aa6d6f0c4fd9dd78d30314497e38fb03b1368b3d5a77ab4b5c
-  target_directory: flash-attention
+  - url: https://github.com/vllm-project/flash-attention/archive/1c2624e53c078854e0637ee566c72fe2107e75f4.tar.gz
+    sha256: cca19d7e53af08aa6d6f0c4fd9dd78d30314497e38fb03b1368b3d5a77ab4b5c
+    target_directory: flash-attention
 
 build:
   number: 0
@@ -48,12 +48,12 @@ build:
     # CMake is unable to automatically locate the Python include dir for aarch64 for some reason
     - if: aarch64
       then:
-      - export CMAKE_ARGS="$CMAKE_ARGS -DPython_INCLUDE_DIR="$(python -c 'import sysconfig; print(sysconfig.get_path("include"))')""
+        - export CMAKE_ARGS="$CMAKE_ARGS -DPython_INCLUDE_DIR="$(python -c 'import sysconfig; print(sysconfig.get_path("include"))')""
     - ${{ PYTHON }} -m pip install . -vv --no-build-isolation --no-deps
 
   python:
     entry_points:
-    - vllm = vllm.entrypoints.cli.main:main
+      - vllm = vllm.entrypoints.cli.main:main
 
   skip:
     - win
@@ -66,156 +66,156 @@ build:
 
 requirements:
   build:
-  - cmake >=3.26.1
-  - git
-  - ninja
-  - zlib
-  - ${{ stdlib('c') }}
-  - ${{ compiler('c') }}
-  - ${{ compiler('cxx') }}
-  - if: use_cuda
-    then:
-    - ${{ compiler('cuda') }}
-  - if: is_cross_compiling
-    then:
-    - python
-    - cross-python_${{ target_platform }}
-    - pytorch ==${{ pytorch_version }}
+    - cmake >=3.26.1
+    - git
+    - ninja
+    - zlib
+    - ${{ stdlib('c') }}
+    - ${{ compiler('c') }}
+    - ${{ compiler('cxx') }}
     - if: use_cuda
       then:
-      - pytorch * [build=cuda*]
+        - ${{ compiler('cuda') }}
+    - if: is_cross_compiling
+      then:
+        - python
+        - cross-python_${{ target_platform }}
+        - pytorch ==${{ pytorch_version }}
+        - if: use_cuda
+          then:
+            - pytorch * [build=cuda*]
   host:
-  - python
-  - jinja2 >=3.1.6
-  - packaging >=24.2
-  - pip
-  - pytorch ==${{ pytorch_version }}
-  - regex
-  - setuptools >=77.0.3,<80.0.0
-  - setuptools-scm >=8
-  - wheel
-  - if: linux
-    then:
-    - libnuma
-  - if: use_cuda
-    then:
-    - pytorch * [build=cuda*]
-    - cuda
-    - cuda-cudart-dev
-    - cuda-nvrtc-dev
-    - cuda-nvrtc-static
-    - cuda-version ==${{ cuda_compiler_version }}
-    - cutlass <4  # Cutlass 4 introduces some major changes to the API that causes it to not compile
-    - libcublas-dev
-    - nvtx-c
+    - python
+    - jinja2 >=3.1.6
+    - packaging >=24.2
+    - pip
+    - pytorch ==${{ pytorch_version }}
+    - regex
+    - setuptools >=77.0.3,<80.0.0
+    - setuptools-scm >=8
+    - wheel
+    - if: linux
+      then:
+        - libnuma
+    - if: use_cuda
+      then:
+        - pytorch * [build=cuda*]
+        - cuda
+        - cuda-cudart-dev
+        - cuda-nvrtc-dev
+        - cuda-nvrtc-static
+        - cuda-version ==${{ cuda_compiler_version }}
+        - cutlass <4 # Cutlass 4 introduces some major changes to the API that causes it to not compile
+        - libcublas-dev
+        - nvtx-c
   run:
-  - python
-  - aiohttp
-  - blake3
-  - cachetools
-  - cloudpickle
-  - compressed-tensors ==0.10.2
-  - depyf ==0.18.0
-  - einops
-  - fastapi >=0.115.0
-  - filelock >=3.16.1
-  - gguf >=0.13.0
-  - importlib-metadata
-  - hf-xet >=1.1.2,<2.0.0
-  - huggingface_hub >=0.33.0
-  - lark ==1.2.2
-  - lm-format-enforcer >=0.10.11,<0.11
-  - mistral-common >=1.6.2
-  - msgspec
-  - numba ==0.61.2
-  - numpy
-  - openai >=1.52.0,<=1.90.0
-  - opencv >=4.11.0
-  - outlines ==0.1.11
-  - partial-json-parser
-  - pillow
-  - prometheus_client >=0.18.0
-  - prometheus-fastapi-instrumentator >=7.0.0
-  - protobuf
-  - psutil
-  - py-cpuinfo
-  - pybase64
-  - pydantic >=2.10
-  - python-json-logger
-  - pytorch ==${{ pytorch_version }}
-  - pyyaml
-  - pyzmq >=25.0.0
-  - regex
-  - requests >=2.26.0
-  - scipy
-  - sentencepiece
-  - tiktoken >=0.6.0
-  - tokenizers >=0.21.1
-  - tqdm
+    - python
+    - aiohttp
+    - blake3
+    - cachetools
+    - cloudpickle
+    - compressed-tensors ==0.10.2
+    - depyf ==0.18.0
+    - einops
+    - fastapi >=0.115.0
+    - filelock >=3.16.1
+    - gguf >=0.13.0
+    - importlib-metadata
+    - hf-xet >=1.1.2,<2.0.0
+    - huggingface_hub >=0.33.0
+    - lark ==1.2.2
+    - lm-format-enforcer >=0.10.11,<0.11
+    - mistral-common >=1.6.2
+    - msgspec
+    - numba ==0.61.2
+    - numpy
+    - openai >=1.52.0,<=1.90.0
+    - opencv >=4.11.0
+    - outlines ==0.1.11
+    - partial-json-parser
+    - pillow
+    - prometheus_client >=0.18.0
+    - prometheus-fastapi-instrumentator >=7.0.0
+    - protobuf
+    - psutil
+    - py-cpuinfo
+    - pybase64
+    - pydantic >=2.10
+    - python-json-logger
+    - pytorch ==${{ pytorch_version }}
+    - pyyaml
+    - pyzmq >=25.0.0
+    - regex
+    - requests >=2.26.0
+    - scipy
+    - sentencepiece
+    - tiktoken >=0.6.0
+    - tokenizers >=0.21.1
+    - tqdm
   # Newer versions of transformers already define the aimv2 config, so we can't use it for now
   # See https://github.com/vllm-project/vllm-ascend/issues/2046#issuecomment-3123639101 for more details.
   # The required fix: https://github.com/vllm-project/vllm/commit/3fc964433a84bad785d9d0656fd56195462321b8
-  - transformers >=4.51.1,<4.54.0
-  - typing_extensions >=4.10
-  - uvicorn-standard
-  - watchfiles
-  - if: x86_64 or arm64 or aarch64
-    then:
-    - llguidance >=0.7.11,< 0.8.0
-    - xgrammar ==0.1.19
-  - if: match(python, ">3.11")
-    then:
-    - six >=1.16.0
-    - setuptools >=77.0.3,<80
-  - if: use_cuda
-    then:
-    - ray-cgraph >=2.43.0,!=2.44
-    - torchaudio ==${{ pytorch_version }}
-    - torchvision ==0.22.0
-    - if: linux64
+    - transformers >=4.51.1,<4.54.0
+    - typing_extensions >=4.10
+    - uvicorn-standard
+    - watchfiles
+    - if: x86_64 or arm64 or aarch64
       then:
-      - xformers ==0.0.30  # platform_system == "Linux" and platform_machine == "x86_64"
-    else:
-    - torchaudio
-    - torchvision
-    - if: x86_64
+        - llguidance >=0.7.11,< 0.8.0
+        - xgrammar ==0.1.19
+    - if: match(python, ">3.11")
       then:
-      - triton ==3.2.0
+        - six >=1.16.0
+        - setuptools >=77.0.3,<80
+    - if: use_cuda
+      then:
+        - ray-cgraph >=2.43.0,!=2.44
+        - torchaudio ==${{ pytorch_version }}
+        - torchvision ==0.22.0
+        - if: linux64
+          then:
+            - xformers ==0.0.30 # platform_system == "Linux" and platform_machine == "x86_64"
+      else:
+        - torchaudio
+        - torchvision
+        - if: x86_64
+          then:
+            - triton ==3.2.0
   run_constraints:
   # Fixes issue with incompatibility between old `datasets` versions and `pyarrow` v21+
   # See https://github.com/apache/arrow/issues/47155 for more details.
   # The required PR is: https://github.com/huggingface/datasets/pull/6404
-  - datasets >=2.15
-  - if: use_cuda
-    then:
-    - pytorch * [build=cuda*]
+    - datasets >=2.15
+    - if: use_cuda
+      then:
+        - pytorch * [build=cuda*]
   ignore_run_exports:
     from_package:
-    - cuda-nvrtc-dev
-    - libcublas-dev
+      - cuda-nvrtc-dev
+      - libcublas-dev
 tests:
-- python:
-    imports:
-    - vllm
-    - if: linux and use_cuda
-      then:
-      - vllm.vllm_flash_attn
-    pip_check: false
-- script:
+  - python:
+      imports:
+        - vllm
+        - if: linux and use_cuda
+          then:
+            - vllm.vllm_flash_attn
+      pip_check: false
+  - script:
   # As of vllm v0.9 and later, it seems like libcuda.so.1 is required for the CLI for CUDA builds (stub libraries don't work)
   # We can't test this on the CPU runners, which is what we're using to build the wheel
-  - if: not use_cuda
-    then:
-    - vllm --version
-- script:
+      - if: not use_cuda
+        then:
+          - vllm --version
+  - script:
     # Pick an arbitrary test to run: some of the other ones rely on a bunch of external packages
-  - pytest ./vllm/tests/core/test_scheduler.py
-  requirements:
-    run:
-    - pytest
-  files:
-    source:
-    - vllm/tests
+      - pytest ./vllm/tests/core/test_scheduler.py
+    requirements:
+      run:
+        - pytest
+    files:
+      source:
+        - vllm/tests
 
 about:
   homepage: https://github.com/vllm-project/vllm
@@ -223,9 +223,9 @@ about:
   description: Easy, fast, and cheap LLM serving for everyone
   license: Apache-2.0 AND BSD-3-Clause
   license_file:
-  - vllm/LICENSE
-  - flash-attention/LICENSE
-  - LICENSE_CUTLASS.txt
+    - vllm/LICENSE
+    - flash-attention/LICENSE
+    - LICENSE_CUTLASS.txt
   documentation: https://vllm.readthedocs.io/en/latest/
 
 extra:
