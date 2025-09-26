@@ -23,7 +23,7 @@ source:
       - if: is_cross_compiling
         then:
           - patches/0004-Factor-in-the-cmake-args-when-building-e.g.-for-cros.patch
-      - if: aarch64
+      - if: aarch64 or arm64
         then:
           - patches/0005-Configure-build-to-target-aarch64-even-though-CMake-.patch
       - patches/0006-Use-PyTorch-2.7.1-to-keep-version-number-consistent-.patch
