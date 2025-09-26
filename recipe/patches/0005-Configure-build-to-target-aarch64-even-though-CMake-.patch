@@ -1,21 +1,22 @@
-From 7d041985a453c8f379cc3329acc2b4da0bea621e Mon Sep 17 00:00:00 2001
+From c55fb3c0507e743c9fe509e89cfac0a8eb90a6e9 Mon Sep 17 00:00:00 2001
 From: Sherman Siu <s8siu@uwaterloo.ca>
 Date: Sun, 31 Aug 2025 20:37:56 -0400
 Subject: [PATCH 5/6] Configure build to target aarch64 even though CMake finds
   x86_64 hardware
 
 ---
- cmake/cpu_extension.cmake | 5 +++++
- 1 file changed, 5 insertions(+)
+ cmake/cpu_extension.cmake | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/cmake/cpu_extension.cmake b/cmake/cpu_extension.cmake
-index 21fcee66d..32fc2ea77 100644
+index e0da46e2a..b60767549 100644
 --- a/cmake/cpu_extension.cmake
 +++ b/cmake/cpu_extension.cmake
-@@ -83,6 +83,11 @@ else()
+@@ -101,6 +101,12 @@ else()
+     find_isa(${CPUINFO} "S390" S390_FOUND)
  endif()
  
- 
++
 +set(ASIMD_FOUND TRUE)
 +set(AVX512_FOUND FALSE)
 +set(AVX2_FOUND FALSE)
