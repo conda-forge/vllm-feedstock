@@ -159,6 +159,7 @@ requirements:
     - requests >=2.26.0
     - scipy
     - sentencepiece
+    - setproctitle
     - tiktoken >=0.6.0
     - tokenizers >=0.21.1
     - tqdm
@@ -195,6 +196,8 @@ requirements:
     # See https://github.com/apache/arrow/issues/47155 for more details.
     # The required PR is: https://github.com/huggingface/datasets/pull/6404
     - datasets >=2.15
+    # Required for OpenAI's GPT-OSS model, but it's not available on conda-forge yet
+    - openai-harmony >=0.0.3
   ignore_run_exports:
     from_package:
       - cuda-nvrtc-dev
