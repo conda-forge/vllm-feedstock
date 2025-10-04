@@ -1,5 +1,5 @@
 context:
-  version: 0.10.2
+  version: "0.11.0"
   build_number: 0
   use_cuda: ${{ cuda_compiler_version != "None" }}
   pytorch_version: 2.8.0
@@ -14,7 +14,7 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/v/vllm/vllm-${{ version }}.tar.gz
-    sha256: 57608f44cf61f5d80fb182c98e06e524cb2925bb528258a7b247c8e43a52d13e
+    sha256: f435a64c24e9c4178d657a76f8edd8548ddc444012f7d06a9f79ac3a6392bfae
     patches:
       - patches/0001-Search-for-the-CUDA-package-in-CMakeLists.patch
       - patches/0002-Remove-ninja-pip-requirement.patch
@@ -223,9 +223,9 @@ tests:
   - script:
     # As of vllm v0.9 and later, it seems like libcuda.so.1 is required for the CLI for CUDA builds (stub libraries don't work)
     # We can't test this on the CPU runners, which is what we're using to build the wheel
-    - if: not use_cuda
-      then:
-        - vllm --version
+      - if: not use_cuda
+        then:
+          - vllm --version
   - files:
       source:
         - tests/
