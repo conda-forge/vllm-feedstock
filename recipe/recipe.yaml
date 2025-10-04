@@ -56,7 +56,12 @@ build:
     # CMake is unable to automatically locate the Python include dir for aarch64 for some reason
     - if: aarch64
       then:
-        - export CMAKE_ARGS="$CMAKE_ARGS -DPython_INCLUDE_DIR="$(python -c 'import sysconfig; print(sysconfig.get_path("include"))')""
+        # We also need to manually specify the CUDA toolkit root because FindCUDA.cmake is broken for cross-compiling otherwise
+        # We need to specify CUDA_TOOLKIT_ROOT instead of CUDA_TOOLKIT_ROOT_DIR because both CUDA_TOOLKIT_ROOT_DIR and CUDA_TOOLKIT_TARGET_DIR are derived from CUDA_TOOLKIT_ROOT in cross-compiling mode
+        - export CMAKE_ARGS="$CMAKE_ARGS -DPython_INCLUDE_DIR="$(python -c 'import sysconfig; print(sysconfig.get_path("include"))')" -DCUDA_TOOLKIT_ROOT=$BUILD_PREFIX"
+        # We can't install libcublas-dev to the build dependencies because it will target linux-64 instead of linux-aarch64
+        # So, we manually copy the cuBLAS headers from the host depenencies instead
+        - find $PREFIX/targets/sbsa-linux/include/ -type f -name 'cublas*.h' -exec cp -navps '{}' $BUILD_PREFIX/targets/sbsa-linux/include/ ';'
     - ${{ PYTHON }} -m pip install . -vv --no-build-isolation --no-deps
 
   python:
@@ -68,9 +73,9 @@ build:
     - osx and x86_64
     # We don't have Python 3.13 support until https://github.com/vllm-project/vllm/commit/21dce80ea96bcf033d159c0f952fb274567b315c is released
     - match(python, ">=3.13")
-    - aarch64 and use_cuda  # Still have issues locating CUDA for the aarch64 build
-    # - not use_cuda  # Just build CUDA for now
-    # - match(python, "!=3.10")  # Until all the builds succeed
+    - not use_cuda  # Just build CUDA for now
+    - not aarch64  # Just build for AArch64 for now
+    - match(python, "!=3.10")  # Until all the builds succeed
 
 requirements:
   build:
