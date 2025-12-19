@@ -1,5 +1,5 @@
 context:
-  version: 0.10.0
+  version: "0.13.0"
   use_cuda: ${{ cuda_compiler_version != "None" }}
   pytorch_version: 2.7.1
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
@@ -13,7 +13,7 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/v/vllm/vllm-${{ version }}.tar.gz
-    sha256: a44e9013db26082a82c3931ed8772ac884d6d60566d36ecdb0e8dc01c65b241a
+    sha256: 4ad43db45fef37114b550d03a4f423fb3fa3a31d8bc09ee810ef8b9cdcd4b5fe
     patches:
       - patches/0001-Search-for-the-CUDA-package-in-CMakeLists.patch
       - patches/0002-Remove-ninja-pip-requirement.patch
@@ -182,7 +182,7 @@ requirements:
         - torchvision ==0.22.1
         - if: linux64
           then:
-          - xformers ==0.0.31.*  # platform_system == "Linux" and platform_machine == "x86_64"
+            - xformers ==0.0.31.* # platform_system == "Linux" and platform_machine == "x86_64"
       else:
         - packaging >=24.2
         - torchaudio
@@ -210,9 +210,9 @@ tests:
   - script:
     # As of vllm v0.9 and later, it seems like libcuda.so.1 is required for the CLI for CUDA builds (stub libraries don't work)
     # We can't test this on the CPU runners, which is what we're using to build the wheel
-    - if: not use_cuda
-      then:
-        - vllm --version
+      - if: not use_cuda
+        then:
+          - vllm --version
   - script:
       # Pick an arbitrary test to run: some of the other ones rely on a bunch of external packages
       - pytest ./vllm/tests/core/test_scheduler.py
