@@ -140,6 +140,7 @@ requirements:
     - numba ==0.61.2
     - numpy
     - openai >=1.87.0,<=1.90.0
+    - openai-harmony >=0.0.3
     - opencv >=4.11.0
     - outlines-core ==0.2.10
     - partial-json-parser
@@ -196,8 +197,6 @@ requirements:
     # See https://github.com/apache/arrow/issues/47155 for more details.
     # The required PR is: https://github.com/huggingface/datasets/pull/6404
     - datasets >=2.15
-    # Required for OpenAI's GPT-OSS model, but it's not available on conda-forge yet
-    - openai-harmony >=0.0.3
   ignore_run_exports:
     from_package:
       - cuda-nvrtc-dev
