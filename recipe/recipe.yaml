@@ -1,5 +1,6 @@
 context:
   version: 0.10.1
+  build_number: 0
   use_cuda: ${{ cuda_compiler_version != "None" }}
   pytorch_version: 2.7.1
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
@@ -34,7 +35,7 @@ source:
     target_directory: flash-attention
 
 build:
-  number: 0
+  number: ${{ build_number }}
   string: ${{ string_prefix }}py${{ python | version_to_buildstring }}h${{ hash }}_${{ build_number }}
   script:
     - sed -i.bak 's/set(TORCH_SUPPORTED_VERSION_CUDA "2.4.0")/set(TORCH_SUPPORTED_VERSION_CUDA "${{ pytorch_version }}")/g' flash-attention/CMakeLists.txt
