@@ -178,7 +178,7 @@ requirements:
         - setuptools >=77.0.3,<80
     - if: use_cuda
       then:
-        - pytorch * [build=cuda*]
+        - pytorch ==${{ pytorch_version }} [build=cuda*]
         - ray-cgraph >=2.43.0,!=2.44
         - torchaudio ==${{ pytorch_version }}
         - torchvision ==0.22.1
