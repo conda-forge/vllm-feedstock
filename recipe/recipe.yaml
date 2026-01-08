@@ -77,7 +77,7 @@ build:
     - match(python, "<3.11") and cuda_compiler_version != "None"
     - aarch64 and use_cuda  # Still have issues locating CUDA for the aarch64 build
     # - not use_cuda  # Just build CUDA for now
-    # - match(python, "!=3.10")  # Until all the builds succeed
+    - match(python, "!=3.13")  # Until all the builds succeed
 
 requirements:
   build:
