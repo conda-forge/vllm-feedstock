@@ -1,4 +1,4 @@
-From a1abb1fb3735f4cc9498a627b430076a48a4b242 Mon Sep 17 00:00:00 2001
+From 8a78b3449af3b75b4ab5dbe0fc8b29958a39d51e Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Fri, 9 Jan 2026 10:52:21 +1100
 Subject: [PATCH 7/7] pass required CUTLASS_NVCC_ARCHS through to cutlass
@@ -8,7 +8,7 @@ Subject: [PATCH 7/7] pass required CUTLASS_NVCC_ARCHS through to cutlass
  1 file changed, 3 insertions(+)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 0139394cb..ef8a31d00 100644
+index 6ad89d702..fce9914cc 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -284,6 +284,9 @@ if(VLLM_GPU_LANG STREQUAL "CUDA")

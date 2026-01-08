@@ -1,4 +1,4 @@
-From a7d169a91bd37a7b8449e9ffa831552ca9370478 Mon Sep 17 00:00:00 2001
+From 09cec5887b097d35b4109e4c9e5272af9ad94b4d Mon Sep 17 00:00:00 2001
 From: Sherman Siu <s8siu@uwaterloo.ca>
 Date: Mon, 21 Jul 2025 05:05:36 -0400
 Subject: [PATCH 3/7] Manually define gettid

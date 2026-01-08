@@ -27,7 +27,7 @@ source:
       - if: aarch64 or arm64
         then:
           - patches/0005-Configure-build-to-target-aarch64-even-though-CMake-.patch
-      - patches/0006-Use-PyTorch-2.7.1-to-keep-version-number-consistent-.patch
+      - patches/0006-Use-consistent-pytorch-version-across-builds.patch
       - patches/0007-pass-required-CUTLASS_NVCC_ARCHS-through-to-cutlass.patch
     target_directory: vllm
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
