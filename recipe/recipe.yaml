@@ -6,7 +6,7 @@ context:
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
   cuda_build_string: cuda_${{ cuda_compiler_version | version_to_buildstring }}
   string_prefix: ${{ cuda_build_string if cuda_compiler_version != "None" else "cpu_" }}
-  is_cross_compiling: ${{ build_platform != target_platform }}
+  is_cross_compiling: ${{ build_platform != host_platform }}
 
 package:
   name: vllm
@@ -88,7 +88,7 @@ requirements:
     - if: is_cross_compiling
       then:
         - python
-        - cross-python_${{ target_platform }}
+        - cross-python_${{ host_platform }}
         - pytorch ==${{ pytorch_version }}
         - if: use_cuda
           then:
