@@ -29,7 +29,6 @@ source:
           - patches/0005-Configure-build-to-target-aarch64-even-though-CMake-.patch
       - patches/0006-Use-consistent-pytorch-version-across-builds.patch
       - patches/0007-pass-required-CUTLASS_NVCC_ARCHS-through-to-cutlass.patch
-    target_directory: vllm
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   # see https://github.com/vllm-project/vllm/blob/v{{ version }}/cmake/external_projects/vllm_flash_attn.cmake#L41
   - url: https://github.com/vllm-project/flash-attention/archive/ee4d25bd84e0cbc7e0b9b9685085fd5db2dcb62a.tar.gz
@@ -42,10 +41,9 @@ build:
   script:
     - sed -i.bak 's/set(TORCH_SUPPORTED_VERSION_CUDA "2.4.0")/set(TORCH_SUPPORTED_VERSION_CUDA "${{ pytorch_version }}")/g' flash-attention/CMakeLists.txt
     - export VLLM_FLASH_ATTN_SRC_DIR=$SRC_DIR/flash-attention
-    - cd vllm
     - python use_existing_torch.py
-    - mkdir -p $SRC_DIR/vllm/third_party/NVTX/c
-    - ln -s $PREFIX/include $SRC_DIR/vllm/third_party/NVTX/c/include
+    - mkdir -p $SRC_DIR/third_party/NVTX/c
+    - ln -s $PREFIX/include $SRC_DIR/third_party/NVTX/c/include
     - export VERBOSE=1
     - export VLLM_TARGET_DEVICE=${{ vllm_target_device }}
     - if: use_cuda
@@ -228,7 +226,7 @@ tests:
         - vllm --version
   - files:
       source:
-        - vllm/tests
+        - tests/
     requirements:
       run:
         # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/test.in
@@ -238,7 +236,7 @@ tests:
         - tblib
     script:
       # Pick an arbitrary test to run: some of the other ones rely on a bunch of external packages
-      - pytest ./vllm/tests/core/test_scheduler.py
+      - pytest ./tests/core/test_scheduler.py
 
 about:
   homepage: https://github.com/vllm-project/vllm
@@ -246,7 +244,7 @@ about:
   description: Easy, fast, and cheap LLM serving for everyone
   license: Apache-2.0 AND BSD-3-Clause
   license_file:
-    - vllm/LICENSE
+    - LICENSE
     - flash-attention/LICENSE
     - LICENSE_CUTLASS.txt
   documentation: https://vllm.readthedocs.io/en/latest/
