@@ -1,7 +1,7 @@
 From 2a0bb44f72d1f1b02d1a1823c1ca824804b24a67 Mon Sep 17 00:00:00 2001
 From: Sherman Siu <s8siu@uwaterloo.ca>
 Date: Mon, 21 Jul 2025 05:04:55 -0400
-Subject: [PATCH 2/6] Remove ninja pip requirement
+Subject: [PATCH 2/7] Remove ninja pip requirement
 
 ---
  requirements/common.txt | 1 -

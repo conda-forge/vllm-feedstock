@@ -1,7 +1,7 @@
 From 4d2a28580515cc32fcb2d4d35e56b137567e3039 Mon Sep 17 00:00:00 2001
 From: Sherman Siu <s8siu@uwaterloo.ca>
 Date: Sun, 31 Aug 2025 18:08:54 -0400
-Subject: [PATCH 5/6] Use consistent pytorch version across builds
+Subject: [PATCH 5/7] Use consistent pytorch version across builds
 
 Co-Authored-By: H. Vetinari <h.vetinari@gmx.com>
 ---

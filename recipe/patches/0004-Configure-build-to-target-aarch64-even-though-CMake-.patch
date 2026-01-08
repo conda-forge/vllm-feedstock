@@ -1,7 +1,7 @@
 From 66fc9cf8fd6633475466de90589e3ae2142d9e1d Mon Sep 17 00:00:00 2001
 From: Sherman Siu <s8siu@uwaterloo.ca>
 Date: Sun, 31 Aug 2025 20:37:56 -0400
-Subject: [PATCH 4/6] Configure build to target aarch64 even though CMake finds
+Subject: [PATCH 4/7] Configure build to target aarch64 even though CMake finds
  x86_64 hardware
 
 ---

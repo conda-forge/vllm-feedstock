@@ -2,7 +2,7 @@ context:
   version: "0.11.1"
   build_number: 0
   use_cuda: ${{ cuda_compiler_version != "None" }}
-  pytorch_version: 2.9.0
+  pytorch_version: 2.9.1
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
   cuda_build_string: cuda_${{ cuda_compiler_version | version_to_buildstring }}
   string_prefix: ${{ cuda_build_string if cuda_compiler_version != "None" else "cpu_" }}
@@ -25,7 +25,8 @@ source:
         then:
           - patches/0004-Configure-build-to-target-aarch64-even-though-CMake-.patch
       - patches/0005-Use-consistent-pytorch-version-across-builds.patch
-      - patches/0007-pass-required-CUTLASS_NVCC_ARCHS-through-to-cutlass.patch
+      - patches/0006-pass-required-CUTLASS_NVCC_ARCHS-through-to-cutlass.patch
+      - patches/0007-allow-pytorch-2.9.1.patch
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   # see https://github.com/vllm-project/vllm/blob/v{{ version }}/cmake/external_projects/vllm_flash_attn.cmake#L41
   - url: https://github.com/vllm-project/flash-attention/archive/58e0626a692f09241182582659e3bf8f16472659.tar.gz

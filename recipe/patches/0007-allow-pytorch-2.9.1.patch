@@ -1,0 +1,72 @@
+From b11455d5a4b2adbfd817d2575876f64906da1ca8 Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Thu, 8 Jan 2026 22:33:12 +1100
+Subject: [PATCH 7/7] allow pytorch 2.9.1
+
+---
+ CMakeLists.txt        | 4 ++--
+ pyproject.toml        | 2 +-
+ requirements/cpu.txt  | 6 +++---
+ requirements/cuda.txt | 4 ++--
+ 4 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 18c5e7ddb..7940e1225 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -56,8 +56,8 @@ endif()
+ # requirements.txt files and should be kept consistent.  The ROCm torch
+ # versions are derived from docker/Dockerfile.rocm
+ #
+-set(TORCH_SUPPORTED_VERSION_CUDA "2.9.0")
+-set(TORCH_SUPPORTED_VERSION_ROCM "2.9.0")
++set(TORCH_SUPPORTED_VERSION_CUDA "2.9.1")
++set(TORCH_SUPPORTED_VERSION_ROCM "2.9.1")
+ 
+ #
+ # Try to find python package with an executable that exactly matches
+diff --git a/pyproject.toml b/pyproject.toml
+index a250ab656..c03f96dd7 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -6,7 +6,7 @@ requires = [
+     "packaging>=24.2",
+     "setuptools>=77.0.3,<81.0.0",
+     "setuptools-scm>=8.0",
+-    "torch == 2.9.0",
++    "torch == 2.9.1",
+     "wheel",
+     "jinja2",
+ ]
+diff --git a/requirements/cpu.txt b/requirements/cpu.txt
+index f3e705e10..aaf52285b 100644
+--- a/requirements/cpu.txt
++++ b/requirements/cpu.txt
+@@ -7,9 +7,9 @@ numba == 0.61.2; platform_machine != "s390x" # Required for N-gram speculative d
+ packaging>=24.2
+ setuptools>=77.0.3,<81.0.0
+ --extra-index-url https://download.pytorch.org/whl/cpu
+-torch==2.9.0; platform_machine == "x86_64" or platform_machine == "s390x"
+-torch==2.9.0; platform_system == "Darwin"
+-torch==2.9.0; platform_machine == "ppc64le" or platform_machine == "aarch64"
++torch==2.9.1; platform_machine == "x86_64" or platform_machine == "s390x"
++torch==2.9.1; platform_system == "Darwin"
++torch==2.9.1; platform_machine == "ppc64le" or platform_machine == "aarch64"
+ 
+ # required for the image processor of minicpm-o-2_6, this must be updated alongside torch
+ torchaudio; platform_machine != "ppc64le" and platform_machine != "s390x"
+diff --git a/requirements/cuda.txt b/requirements/cuda.txt
+index d63fe9e1e..0f6af4fd0 100644
+--- a/requirements/cuda.txt
++++ b/requirements/cuda.txt
+@@ -5,8 +5,8 @@ numba == 0.61.2 # Required for N-gram speculative decoding
+ 
+ # Dependencies for NVIDIA GPUs
+ ray[cgraph]>=2.48.0 # Ray Compiled Graph, required for pipeline parallelism in V1.
+-torch==2.9.0
+-torchaudio==2.9.0
++torch==2.9.1
++torchaudio==2.9.1
+ # These must be updated alongside torch
+ torchvision==0.24.0 # Required for phi3v processor. See https://github.com/pytorch/vision?tab=readme-ov-file#installation for corresponding version
+ xformers==0.0.33.post1; platform_system == 'Linux' and platform_machine == 'x86_64'  # Requires PyTorch >= 2.9
