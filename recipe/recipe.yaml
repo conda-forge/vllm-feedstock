@@ -231,7 +231,11 @@ tests:
         - vllm/tests
     requirements:
       run:
+        # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/test.in
+        # currently just a small subset
+        - huggingface_hub
         - pytest
+        - tblib
     script:
       # Pick an arbitrary test to run: some of the other ones rely on a bunch of external packages
       - pytest ./vllm/tests/core/test_scheduler.py
