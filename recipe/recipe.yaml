@@ -226,15 +226,15 @@ tests:
     - if: not use_cuda
       then:
         - vllm --version
-  - script:
-      # Pick an arbitrary test to run: some of the other ones rely on a bunch of external packages
-      - pytest ./vllm/tests/core/test_scheduler.py
+  - files:
+      source:
+        - vllm/tests
     requirements:
       run:
         - pytest
-    files:
-      source:
-        - vllm/tests
+    script:
+      # Pick an arbitrary test to run: some of the other ones rely on a bunch of external packages
+      - pytest ./vllm/tests/core/test_scheduler.py
 
 about:
   homepage: https://github.com/vllm-project/vllm
