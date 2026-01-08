@@ -28,6 +28,7 @@ source:
         then:
           - patches/0005-Configure-build-to-target-aarch64-even-though-CMake-.patch
       - patches/0006-Use-PyTorch-2.7.1-to-keep-version-number-consistent-.patch
+      - patches/0007-pass-required-CUTLASS_NVCC_ARCHS-through-to-cutlass.patch
     target_directory: vllm
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   - url: https://github.com/vllm-project/flash-attention/archive/1c2624e53c078854e0637ee566c72fe2107e75f4.tar.gz
@@ -54,6 +55,10 @@ build:
         # Override the CUDA architectures configured in the conda-forge nvcc package: https://github.com/conda-forge/cuda-nvcc-feedstock/blob/7843e9f1b9ea6bc555cd70c247d774189fc34110/recipe/conda_build_config.yaml#L21-L28
         - export CUDAARCHS="80-real;86-real;89-real;90a-real;100f-real;120a-real"
         - export TORCH_CUDA_ARCH_LIST="8.0;8.6;8.9;9.0;10.0;12.0+PTX"
+        # not usable with pytorch: https://github.com/pytorch/pytorch/issues/172034
+        - export CMAKE_CUDA_ARCHITECTURES="80;86;89;90;10;12"
+        # for vendored cutlass, see https://github.com/NVIDIA/cutlass/blob/v4.0.0/CMakeLists.txt
+        - export CUTLASS_NVCC_ARCHS="80;86;89;90;10;12"
     # CMake is unable to automatically locate the Python include dir for aarch64 for some reason
     - if: aarch64
       then:

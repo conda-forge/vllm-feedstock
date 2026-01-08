@@ -1,7 +1,7 @@
-From 4ba473d9854a6a6432ded4c3969c7ada07f92b63 Mon Sep 17 00:00:00 2001
+From 11250c17b1d02db91d26f14f9c50671289dc3c76 Mon Sep 17 00:00:00 2001
 From: Sherman Siu <s8siu@uwaterloo.ca>
 Date: Sun, 31 Aug 2025 18:08:54 -0400
-Subject: [PATCH 6/6] Use PyTorch 2.7.1 to keep version number consistent
+Subject: [PATCH 6/7] Use PyTorch 2.7.1 to keep version number consistent
  across builds
 
 ---
