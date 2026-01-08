@@ -21,13 +21,10 @@ source:
       - if: linux
         then:
           - patches/0003-Manually-define-gettid.patch
-      - if: is_cross_compiling
-        then:
-          - patches/0004-Factor-in-the-cmake-args-when-building-e.g.-for-cros.patch
       - if: aarch64 or arm64
         then:
-          - patches/0005-Configure-build-to-target-aarch64-even-though-CMake-.patch
-      - patches/0006-Use-consistent-pytorch-version-across-builds.patch
+          - patches/0004-Configure-build-to-target-aarch64-even-though-CMake-.patch
+      - patches/0005-Use-consistent-pytorch-version-across-builds.patch
       - patches/0007-pass-required-CUTLASS_NVCC_ARCHS-through-to-cutlass.patch
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   # see https://github.com/vllm-project/vllm/blob/v{{ version }}/cmake/external_projects/vllm_flash_attn.cmake#L41
