@@ -1,8 +1,8 @@
 context:
-  version: "0.11.0"
+  version: "0.11.1"
   build_number: 0
   use_cuda: ${{ cuda_compiler_version != "None" }}
-  pytorch_version: 2.8.0
+  pytorch_version: 2.9.0
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
   cuda_build_string: cuda_${{ cuda_compiler_version | version_to_buildstring }}
   string_prefix: ${{ cuda_build_string if cuda_compiler_version != "None" else "cpu_" }}
@@ -14,7 +14,7 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/v/vllm/vllm-${{ version }}.tar.gz
-    sha256: f435a64c24e9c4178d657a76f8edd8548ddc444012f7d06a9f79ac3a6392bfae
+    sha256: 672af6f0a56117b9e84b8caacbfe437afba9f366cef8e524dcc5f3f03edd954e
     patches:
       - patches/0001-Search-for-the-CUDA-package-in-CMakeLists.patch
       - patches/0002-Remove-ninja-pip-requirement.patch
@@ -31,8 +31,8 @@ source:
       - patches/0007-pass-required-CUTLASS_NVCC_ARCHS-through-to-cutlass.patch
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   # see https://github.com/vllm-project/vllm/blob/v{{ version }}/cmake/external_projects/vllm_flash_attn.cmake#L41
-  - url: https://github.com/vllm-project/flash-attention/archive/ee4d25bd84e0cbc7e0b9b9685085fd5db2dcb62a.tar.gz
-    sha256: 43336897cb2f264bf607778705b6986f2559bcc36a9df5c78d340ca5b3885183
+  - url: https://github.com/vllm-project/flash-attention/archive/58e0626a692f09241182582659e3bf8f16472659.tar.gz
+    sha256: 93656e7c90eca528024b87ef4510eeab5192cbfc83db3975a9473a89e903e360
     target_directory: flash-attention
 
 build:
@@ -132,21 +132,23 @@ requirements:
     # print("\n    - ".join(sorted([x.split("#")[0] for x in reqs.splitlines()])))
     # if done like that, it obviously needs manual fix-ups though (check the diff!)
     - aiohttp
+    - anthropic ==0.71.0
     - blake3
     - cachetools
     - cbor2
     - cloudpickle
-    - compressed-tensors ==0.11.0
-    - depyf ==0.19.0
+    - compressed-tensors ==0.12.2
+    - depyf ==0.20.0
     - diskcache ==5.6.3
     - einops
     - fastapi >=0.115.0
     - filelock >=3.16.1
     - gguf >=0.13.0
     - lark ==1.2.2
-    - llguidance >=0.7.11,<0.8.0
+    - llguidance >=1.3.0,<1.4.0
     - lm-format-enforcer ==0.11.3
-    - mistral-common >=1.8.2
+    - mistral-common >=1.8.5
+    - model-hosting-container-standards <1.0.0
     - msgspec
     - ninja
     - numba ==0.61.2
@@ -163,7 +165,7 @@ requirements:
     - psutil
     - py-cpuinfo
     - pybase64
-    - pydantic >=2.11.7
+    - pydantic >=2.12.0
     - python-json-logger
     - pytorch ==${{ pytorch_version }}
     - pyyaml
@@ -176,24 +178,25 @@ requirements:
     - tiktoken >=0.6.0
     - tokenizers >=0.21.1
     - tqdm
-    - transformers >=4.55.2
+    - transformers >=4.56.0,<5
     - typing_extensions >=4.10
     - watchfiles
-    - xgrammar ==0.1.23
+    - xgrammar ==0.1.25
     - if: match(python, ">3.11")
       then:
         - six >=1.16.0
-        - setuptools >=77.0.3,<80
+        - setuptools >=77.0.3,<81
     - if: use_cuda
       then:
         # see # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cuda.txt
         - pytorch ==${{ pytorch_version }} [build=cuda*]
+        - flashinfer-python ==0.5.2
         - ray-cgraph >=2.48
         - torchaudio ==${{ pytorch_version }}
-        - torchvision ==0.23.0
+        - torchvision ==0.24.0
         - if: linux64
           then:
-            - xformers ==0.0.32.*
+            - xformers ==0.0.33.*
       else:
         # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cpu.txt;
         # some are in common already (py-cpuinfo), some move there because they're in both cpu&cuda (numba)
