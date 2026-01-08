@@ -1,8 +1,8 @@
 context:
-  version: 0.10.1
+  version: 0.10.2
   build_number: 0
   use_cuda: ${{ cuda_compiler_version != "None" }}
-  pytorch_version: 2.7.1
+  pytorch_version: 2.8.0
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
   cuda_build_string: cuda_${{ cuda_compiler_version | version_to_buildstring }}
   string_prefix: ${{ cuda_build_string if cuda_compiler_version != "None" else "cpu_" }}
@@ -14,7 +14,7 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/v/vllm/vllm-${{ version }}.tar.gz
-    sha256: 99d00498f25b94767bb2696e88feb67730677dae605c9b8af99492dc3c34492d
+    sha256: 57608f44cf61f5d80fb182c98e06e524cb2925bb528258a7b247c8e43a52d13e
     patches:
       - patches/0001-Search-for-the-CUDA-package-in-CMakeLists.patch
       - patches/0002-Remove-ninja-pip-requirement.patch
@@ -31,8 +31,9 @@ source:
       - patches/0007-pass-required-CUTLASS_NVCC_ARCHS-through-to-cutlass.patch
     target_directory: vllm
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
-  - url: https://github.com/vllm-project/flash-attention/archive/1c2624e53c078854e0637ee566c72fe2107e75f4.tar.gz
-    sha256: cca19d7e53af08aa6d6f0c4fd9dd78d30314497e38fb03b1368b3d5a77ab4b5c
+  # see https://github.com/vllm-project/vllm/blob/v{{ version }}/cmake/external_projects/vllm_flash_attn.cmake#L41
+  - url: https://github.com/vllm-project/flash-attention/archive/ee4d25bd84e0cbc7e0b9b9685085fd5db2dcb62a.tar.gz
+    sha256: 43336897cb2f264bf607778705b6986f2559bcc36a9df5c78d340ca5b3885183
     target_directory: flash-attention
 
 build:
@@ -128,40 +129,43 @@ requirements:
         - nvtx-c
   run:
     - python
+    # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/common.txt
+    # can save raw content into multiline variable `reqs` and then preprocess with
+    # print("\n    - ".join(sorted([x.split("#")[0] for x in reqs.splitlines()])))
+    # if done like that, it obviously needs manual fix-ups though (check the diff!)
     - aiohttp
     - blake3
     - cachetools
     - cbor2
     - cloudpickle
-    - compressed-tensors ==0.10.2
+    - compressed-tensors ==0.11.0
     - depyf ==0.19.0
     - diskcache ==5.6.3
     - einops
     - fastapi >=0.115.0
     - filelock >=3.16.1
     - gguf >=0.13.0
-    - importlib-metadata
-    - hf-xet >=1.1.2,<2.0.0
-    - huggingface_hub >=0.33.0
     - lark ==1.2.2
-    - lm-format-enforcer >=0.10.11,<0.11
+    - llguidance >=0.7.11,<0.8.0
+    - lm-format-enforcer ==0.11.3
     - mistral-common >=1.8.2
     - msgspec
+    - ninja
     - numba ==0.61.2
     - numpy
     - openai >=1.99.1
     - openai-harmony >=0.0.3
     - opencv >=4.11.0
-    - outlines-core ==0.2.10
+    - outlines-core ==0.2.11
     - partial-json-parser
     - pillow
-    - prometheus_client >=0.18.0
     - prometheus-fastapi-instrumentator >=7.0.0
+    - prometheus_client >=0.18.0
     - protobuf
     - psutil
     - py-cpuinfo
     - pybase64
-    - pydantic >=2.10
+    - pydantic >=2.11.7
     - python-json-logger
     - pytorch ==${{ pytorch_version }}
     - pyyaml
@@ -174,28 +178,27 @@ requirements:
     - tiktoken >=0.6.0
     - tokenizers >=0.21.1
     - tqdm
-    - transformers >=4.55.0
+    - transformers >=4.55.2
     - typing_extensions >=4.10
-    - uvicorn-standard
     - watchfiles
-    - if: x86_64 or arm64 or aarch64
-      then:
-        - llguidance >=0.7.11,<0.8.0
-        - xgrammar ==0.1.22  # 0.1.21 is unavailable on conda-forge.
+    - xgrammar ==0.1.23
     - if: match(python, ">3.11")
       then:
         - six >=1.16.0
         - setuptools >=77.0.3,<80
     - if: use_cuda
       then:
+        # see # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cuda.txt
         - pytorch ==${{ pytorch_version }} [build=cuda*]
-        - ray-cgraph >=2.43.0,!=2.44
+        - ray-cgraph >=2.48
         - torchaudio ==${{ pytorch_version }}
-        - torchvision ==0.22.1
+        - torchvision ==0.23.0
         - if: linux64
           then:
-          - xformers ==0.0.31.*  # platform_system == "Linux" and platform_machine == "x86_64"
+            - xformers ==0.0.32.*
       else:
+        # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cpu.txt;
+        # some are in common already (py-cpuinfo), some move there because they're in both cpu&cuda (numba)
         - packaging >=24.2
         - torchaudio
         - torchvision
