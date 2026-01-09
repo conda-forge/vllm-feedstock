@@ -63,6 +63,10 @@ build:
     - if: aarch64
       then:
         - export CMAKE_ARGS="$CMAKE_ARGS -DPython_INCLUDE_DIR="$(python -c 'import sysconfig; print(sysconfig.get_path("include"))')""
+    # ensure we don't use the default CMAKE_BUILD_TYPE=RelWithDebInfo, see
+    # https://github.com/vllm-project/vllm/blob/v0.10.1/setup.py#L147
+    # https://github.com/vllm-project/vllm/blob/v0.10.1/vllm/envs.py#L268
+    - export CMAKE_BUILD_TYPE=Release
     - ${{ PYTHON }} -m pip install . -vv --no-build-isolation --no-deps
 
   python:
