@@ -1,20 +1,21 @@
-From 76c00503132e37df5b3845bb0f132d6adb5042d8 Mon Sep 17 00:00:00 2001
+From de89f4d2fd051d8278996d4d13623782b9b27da7 Mon Sep 17 00:00:00 2001
 From: Sherman Siu <s8siu@uwaterloo.ca>
 Date: Mon, 21 Jul 2025 05:04:55 -0400
-Subject: [PATCH 2/6] Remove ninja pip requirement
+Subject: [PATCH 2/7] Remove ninja pip requirement
 
 ---
  requirements/common.txt | 1 -
  1 file changed, 1 deletion(-)
 
 diff --git a/requirements/common.txt b/requirements/common.txt
-index 96ab646bb..11100d634 100644
+index 1a8fea0dd..27636cf47 100644
 --- a/requirements/common.txt
 +++ b/requirements/common.txt
-@@ -45,6 +45,5 @@ cloudpickle # allows pickling lambda functions in model_executor/models/registry
+@@ -44,7 +44,6 @@ cloudpickle # allows pickling lambda functions in model_executor/models/registry
  watchfiles # required for http server to monitor the updates of TLS files
  python-json-logger # Used by logging as per examples/others/logging_configuration.md
  scipy # Required for phi-4-multimodal-instruct
 -ninja # Required for xgrammar, rocm, tpu, xpu
  pybase64 # fast base64 implementation
  cbor2 # Required for cross-language serialization of hashable objects
+ setproctitle # Used to set process names for better debugging and monitoring

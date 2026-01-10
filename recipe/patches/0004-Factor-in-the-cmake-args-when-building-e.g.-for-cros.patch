@@ -1,7 +1,7 @@
-From b9eee49dd4637b8e906d1368edcb96dd94665e15 Mon Sep 17 00:00:00 2001
+From a3740f202f898613a80d06bc27de7f07422b4a8f Mon Sep 17 00:00:00 2001
 From: Sherman Siu <s8siu@uwaterloo.ca>
 Date: Mon, 21 Jul 2025 05:08:38 -0400
-Subject: [PATCH 4/6] Factor in the cmake args when building, e.g. for
+Subject: [PATCH 4/7] Factor in the cmake args when building, e.g. for
  cross-compilation
 
 ---
@@ -9,10 +9,10 @@ Subject: [PATCH 4/6] Factor in the cmake args when building, e.g. for
  1 file changed, 3 insertions(+)
 
 diff --git a/setup.py b/setup.py
-index d46e678e7..dfaf7913f 100644
+index cc3037ebb..578087edb 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -205,6 +205,9 @@ class cmake_build_ext(build_ext):
+@@ -207,6 +207,9 @@ class cmake_build_ext(build_ext):
          # Make sure we use the nvcc from CUDA_HOME
          if _is_cuda():
              cmake_args += [f'-DCMAKE_CUDA_COMPILER={CUDA_HOME}/bin/nvcc']

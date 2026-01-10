@@ -1,11 +1,12 @@
 context:
-  version: 0.10.0
+  version: 0.10.1
+  build_number: 0
   use_cuda: ${{ cuda_compiler_version != "None" }}
   pytorch_version: 2.7.1
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
   cuda_build_string: cuda_${{ cuda_compiler_version | version_to_buildstring }}
   string_prefix: ${{ cuda_build_string if cuda_compiler_version != "None" else "cpu_" }}
-  is_cross_compiling: ${{ build_platform != target_platform }}
+  is_cross_compiling: ${{ build_platform != host_platform }}
 
 package:
   name: vllm
@@ -13,7 +14,7 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/v/vllm/vllm-${{ version }}.tar.gz
-    sha256: a44e9013db26082a82c3931ed8772ac884d6d60566d36ecdb0e8dc01c65b241a
+    sha256: 99d00498f25b94767bb2696e88feb67730677dae605c9b8af99492dc3c34492d
     patches:
       - patches/0001-Search-for-the-CUDA-package-in-CMakeLists.patch
       - patches/0002-Remove-ninja-pip-requirement.patch
@@ -23,10 +24,11 @@ source:
       - if: is_cross_compiling
         then:
           - patches/0004-Factor-in-the-cmake-args-when-building-e.g.-for-cros.patch
-      - if: aarch64
+      - if: aarch64 or arm64
         then:
           - patches/0005-Configure-build-to-target-aarch64-even-though-CMake-.patch
       - patches/0006-Use-PyTorch-2.7.1-to-keep-version-number-consistent-.patch
+      - patches/0007-pass-required-CUTLASS_NVCC_ARCHS-through-to-cutlass.patch
     target_directory: vllm
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   - url: https://github.com/vllm-project/flash-attention/archive/1c2624e53c078854e0637ee566c72fe2107e75f4.tar.gz
@@ -34,7 +36,7 @@ source:
     target_directory: flash-attention
 
 build:
-  number: 0
+  number: ${{ build_number }}
   string: ${{ string_prefix }}py${{ python | version_to_buildstring }}h${{ hash }}_${{ build_number }}
   script:
     - sed -i.bak 's/set(TORCH_SUPPORTED_VERSION_CUDA "2.4.0")/set(TORCH_SUPPORTED_VERSION_CUDA "${{ pytorch_version }}")/g' flash-attention/CMakeLists.txt
@@ -51,12 +53,20 @@ build:
         # Building vLLM is memory-intensive: see https://github.com/Dao-AILab/flash-attention/issues/1043#issuecomment-2770635000
         - export MAX_JOBS=3
         # Override the CUDA architectures configured in the conda-forge nvcc package: https://github.com/conda-forge/cuda-nvcc-feedstock/blob/7843e9f1b9ea6bc555cd70c247d774189fc34110/recipe/conda_build_config.yaml#L21-L28
-        - export CUDAARCHS="50-real;60-real;70-real;75-real;80-real;86-real;89-real;90a-real;100f-real;120a-real"
-        - export TORCH_CUDA_ARCH_LIST="5.0;6.0;7.0;7.5;8.0;8.6;8.9;9.0;10.0;12.0+PTX"
+        - export CUDAARCHS="70-real;80-real;86-real;89-real;90a-real;100f-real;120a-real"
+        - export TORCH_CUDA_ARCH_LIST="7.0;8.0;8.6;8.9;9.0;10.0;12.0+PTX"
+        # not usable with pytorch: https://github.com/pytorch/pytorch/issues/172034
+        - export CMAKE_CUDA_ARCHITECTURES="70;80;86;89;90;10;12"
+        # for vendored cutlass, see https://github.com/NVIDIA/cutlass/blob/v4.0.0/CMakeLists.txt
+        - export CUTLASS_NVCC_ARCHS="70;80;86;89;90;10;12"
     # CMake is unable to automatically locate the Python include dir for aarch64 for some reason
     - if: aarch64
       then:
         - export CMAKE_ARGS="$CMAKE_ARGS -DPython_INCLUDE_DIR="$(python -c 'import sysconfig; print(sysconfig.get_path("include"))')""
+    # ensure we don't use the default CMAKE_BUILD_TYPE=RelWithDebInfo, see
+    # https://github.com/vllm-project/vllm/blob/v0.10.1/setup.py#L147
+    # https://github.com/vllm-project/vllm/blob/v0.10.1/vllm/envs.py#L268
+    - export CMAKE_BUILD_TYPE=Release
     - ${{ PYTHON }} -m pip install . -vv --no-build-isolation --no-deps
 
   python:
@@ -87,7 +97,7 @@ requirements:
     - if: is_cross_compiling
       then:
         - python
-        - cross-python_${{ target_platform }}
+        - cross-python_${{ host_platform }}
         - pytorch ==${{ pytorch_version }}
         - if: use_cuda
           then:
@@ -139,7 +149,8 @@ requirements:
     - msgspec
     - numba ==0.61.2
     - numpy
-    - openai >=1.87.0,<=1.90.0
+    - openai >=1.99.1
+    - openai-harmony >=0.0.3
     - opencv >=4.11.0
     - outlines-core ==0.2.10
     - partial-json-parser
@@ -159,10 +170,11 @@ requirements:
     - requests >=2.26.0
     - scipy
     - sentencepiece
+    - setproctitle
     - tiktoken >=0.6.0
     - tokenizers >=0.21.1
     - tqdm
-    - transformers >=4.53.2
+    - transformers >=4.55.0
     - typing_extensions >=4.10
     - uvicorn-standard
     - watchfiles
@@ -176,7 +188,7 @@ requirements:
         - setuptools >=77.0.3,<80
     - if: use_cuda
       then:
-        - pytorch * [build=cuda*]
+        - pytorch ==${{ pytorch_version }} [build=cuda*]
         - ray-cgraph >=2.43.0,!=2.44
         - torchaudio ==${{ pytorch_version }}
         - torchvision ==0.22.1
@@ -238,3 +250,4 @@ extra:
   recipe-maintainers:
     - maresb
     - shermansiu
+    - h-vetinari
