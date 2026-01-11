@@ -1,4 +1,4 @@
-From 7b03aa50e309a3cd3916cb8e07e3cf811086cfe9 Mon Sep 17 00:00:00 2001
+From 93c60ea14ce98cb1406de9c72694774d181a8327 Mon Sep 17 00:00:00 2001
 From: Sherman Siu <s8siu@uwaterloo.ca>
 Date: Mon, 21 Jul 2025 05:01:32 -0400
 Subject: [PATCH 1/7] Search for the CUDA package in CMakeLists
@@ -8,7 +8,7 @@ Subject: [PATCH 1/7] Search for the CUDA package in CMakeLists
  1 file changed, 1 insertion(+)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 34386d670..0139394cb 100644
+index 3f1f9a781..6ad89d702 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -66,6 +66,7 @@ endif()

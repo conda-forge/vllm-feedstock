@@ -1,4 +1,4 @@
-From de89f4d2fd051d8278996d4d13623782b9b27da7 Mon Sep 17 00:00:00 2001
+From 8770306ce9f688791363d8071e169372276b02ba Mon Sep 17 00:00:00 2001
 From: Sherman Siu <s8siu@uwaterloo.ca>
 Date: Mon, 21 Jul 2025 05:04:55 -0400
 Subject: [PATCH 2/7] Remove ninja pip requirement
@@ -8,7 +8,7 @@ Subject: [PATCH 2/7] Remove ninja pip requirement
  1 file changed, 1 deletion(-)
 
 diff --git a/requirements/common.txt b/requirements/common.txt
-index 1a8fea0dd..27636cf47 100644
+index b8665104b..2691a803e 100644
 --- a/requirements/common.txt
 +++ b/requirements/common.txt
 @@ -44,7 +44,6 @@ cloudpickle # allows pickling lambda functions in model_executor/models/registry
