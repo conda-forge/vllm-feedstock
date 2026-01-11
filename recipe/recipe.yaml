@@ -220,7 +220,7 @@ tests:
         - if: linux and use_cuda
           then:
             - vllm.vllm_flash_attn
-      pip_check: false
+      pip_check: true
   - script:
     # As of vllm v0.9 and later, it seems like libcuda.so.1 is required for the CLI for CUDA builds (stub libraries don't work)
     # We can't test this on the CPU runners, which is what we're using to build the wheel
