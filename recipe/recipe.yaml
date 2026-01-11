@@ -75,6 +75,8 @@ build:
   skip:
     - win
     - osx and x86_64
+    # ray (CUDA-only dependency) does not support 3.10 anymore
+    - match(python, "<3.11") and cuda_compiler_version != "None"
     - aarch64 and use_cuda  # Still have issues locating CUDA for the aarch64 build
     # - not use_cuda  # Just build CUDA for now
     # - match(python, "!=3.10")  # Until all the builds succeed
