@@ -55,9 +55,9 @@ build:
         - export CUDAARCHS="70-real;80-real;86-real;89-real;90a-real;100f-real;120a-real"
         - export TORCH_CUDA_ARCH_LIST="7.0;8.0;8.6;8.9;9.0;10.0;12.0+PTX"
         # not usable with pytorch: https://github.com/pytorch/pytorch/issues/172034
-        - export CMAKE_CUDA_ARCHITECTURES="70;80;86;89;90;10;12"
+        - export CMAKE_CUDA_ARCHITECTURES="70;80;86;89;90;100;120"
         # for vendored cutlass, see https://github.com/NVIDIA/cutlass/blob/v4.0.0/CMakeLists.txt
-        - export CUTLASS_NVCC_ARCHS="70;80;86;89;90;10;12"
+        - export CUTLASS_NVCC_ARCHS="70;80;86;89;90;100;120"
     # CMake is unable to automatically locate the Python include dir for aarch64 for some reason
     - if: aarch64
       then:
