@@ -50,12 +50,12 @@ build:
         # Building vLLM is memory-intensive: see https://github.com/Dao-AILab/flash-attention/issues/1043#issuecomment-2770635000
         - export MAX_JOBS=3
         # Override the CUDA architectures configured in the conda-forge nvcc package: https://github.com/conda-forge/cuda-nvcc-feedstock/blob/7843e9f1b9ea6bc555cd70c247d774189fc34110/recipe/conda_build_config.yaml#L21-L28
-        - export CUDAARCHS="70-real;80-real;86-real;89-real;90a-real;100f-real;120a-real"
-        - export TORCH_CUDA_ARCH_LIST="7.0;8.0;8.6;8.9;9.0;10.0;12.0+PTX"
+        - export CUDAARCHS="90-real"
+        - export TORCH_CUDA_ARCH_LIST="9.0+PTX"
         # not usable with pytorch: https://github.com/pytorch/pytorch/issues/172034
-        - export CMAKE_CUDA_ARCHITECTURES="70;80;86;89;90;100;120"
+        - export CMAKE_CUDA_ARCHITECTURES="90"
         # for vendored cutlass, see https://github.com/NVIDIA/cutlass/blob/v4.0.0/CMakeLists.txt
-        - export CUTLASS_NVCC_ARCHS="70;80;86;89;90;100;120"
+        - export CUTLASS_NVCC_ARCHS="90"
     # CMake is unable to automatically locate the Python include dir for aarch64 for some reason
     - if: aarch64
       then:
