@@ -1,0 +1,23 @@
+From 6bca192d73a10d0395f2a3813b1b6691dc064e54 Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Fri, 9 Jan 2026 10:52:21 +1100
+Subject: [PATCH 6/7] pass required CUTLASS_NVCC_ARCHS through to cutlass
+
+---
+ CMakeLists.txt | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 65f7cb38c..18c5e7ddb 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -335,6 +335,9 @@ if(VLLM_GPU_LANG STREQUAL "CUDA")
+         GIT_SHALLOW TRUE
+     )
+   endif()
++  if(DEFINED ENV{CUTLASS_NVCC_ARCHS})
++    set(CUTLASS_NVCC_ARCHS "$ENV{CUTLASS_NVCC_ARCHS}" CACHE STRING "CUDA architectures for CUTLASS")
++  endif()
+   FetchContent_MakeAvailable(cutlass)
+ 
+   list(APPEND VLLM_EXT_SRC

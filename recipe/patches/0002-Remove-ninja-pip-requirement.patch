@@ -1,4 +1,4 @@
-From 8770306ce9f688791363d8071e169372276b02ba Mon Sep 17 00:00:00 2001
+From 2a0bb44f72d1f1b02d1a1823c1ca824804b24a67 Mon Sep 17 00:00:00 2001
 From: Sherman Siu <s8siu@uwaterloo.ca>
 Date: Mon, 21 Jul 2025 05:04:55 -0400
 Subject: [PATCH 2/7] Remove ninja pip requirement
@@ -8,10 +8,10 @@ Subject: [PATCH 2/7] Remove ninja pip requirement
  1 file changed, 1 deletion(-)
 
 diff --git a/requirements/common.txt b/requirements/common.txt
-index b8665104b..2691a803e 100644
+index ad92ba3ad..81de644a7 100644
 --- a/requirements/common.txt
 +++ b/requirements/common.txt
-@@ -44,7 +44,6 @@ cloudpickle # allows pickling lambda functions in model_executor/models/registry
+@@ -43,7 +43,6 @@ cloudpickle # allows pickling lambda functions in model_executor/models/registry
  watchfiles # required for http server to monitor the updates of TLS files
  python-json-logger # Used by logging as per examples/others/logging_configuration.md
  scipy # Required for phi-4-multimodal-instruct

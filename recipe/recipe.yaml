@@ -1,8 +1,8 @@
 context:
-  version: 0.10.2
+  version: "0.11.1"
   build_number: 0
   use_cuda: ${{ cuda_compiler_version != "None" }}
-  pytorch_version: 2.8.0
+  pytorch_version: 2.9.1
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
   cuda_build_string: cuda_${{ cuda_compiler_version | version_to_buildstring }}
   string_prefix: ${{ cuda_build_string if cuda_compiler_version != "None" else "cpu_" }}
@@ -14,25 +14,23 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/v/vllm/vllm-${{ version }}.tar.gz
-    sha256: 57608f44cf61f5d80fb182c98e06e524cb2925bb528258a7b247c8e43a52d13e
+    sha256: 672af6f0a56117b9e84b8caacbfe437afba9f366cef8e524dcc5f3f03edd954e
     patches:
       - patches/0001-Search-for-the-CUDA-package-in-CMakeLists.patch
       - patches/0002-Remove-ninja-pip-requirement.patch
       - if: linux
         then:
           - patches/0003-Manually-define-gettid.patch
-      - if: is_cross_compiling
-        then:
-          - patches/0004-Factor-in-the-cmake-args-when-building-e.g.-for-cros.patch
       - if: aarch64 or arm64
         then:
-          - patches/0005-Configure-build-to-target-aarch64-even-though-CMake-.patch
-      - patches/0006-Use-consistent-pytorch-version-across-builds.patch
-      - patches/0007-pass-required-CUTLASS_NVCC_ARCHS-through-to-cutlass.patch
+          - patches/0004-Configure-build-to-target-aarch64-even-though-CMake-.patch
+      - patches/0005-Use-consistent-pytorch-version-across-builds.patch
+      - patches/0006-pass-required-CUTLASS_NVCC_ARCHS-through-to-cutlass.patch
+      - patches/0007-allow-pytorch-2.9.1.patch
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   # see https://github.com/vllm-project/vllm/blob/v{{ version }}/cmake/external_projects/vllm_flash_attn.cmake#L41
-  - url: https://github.com/vllm-project/flash-attention/archive/ee4d25bd84e0cbc7e0b9b9685085fd5db2dcb62a.tar.gz
-    sha256: 43336897cb2f264bf607778705b6986f2559bcc36a9df5c78d340ca5b3885183
+  - url: https://github.com/vllm-project/flash-attention/archive/58e0626a692f09241182582659e3bf8f16472659.tar.gz
+    sha256: 93656e7c90eca528024b87ef4510eeab5192cbfc83db3975a9473a89e903e360
     target_directory: flash-attention
 
 build:
@@ -52,12 +50,12 @@ build:
         # Building vLLM is memory-intensive: see https://github.com/Dao-AILab/flash-attention/issues/1043#issuecomment-2770635000
         - export MAX_JOBS=3
         # Override the CUDA architectures configured in the conda-forge nvcc package: https://github.com/conda-forge/cuda-nvcc-feedstock/blob/7843e9f1b9ea6bc555cd70c247d774189fc34110/recipe/conda_build_config.yaml#L21-L28
-        - export CUDAARCHS="70-real;80-real;86-real;89-real;90a-real;100f-real;120a-real"
-        - export TORCH_CUDA_ARCH_LIST="7.0;8.0;8.6;8.9;9.0;10.0;12.0+PTX"
+        - export CUDAARCHS="90-real"
+        - export TORCH_CUDA_ARCH_LIST="9.0+PTX"
         # not usable with pytorch: https://github.com/pytorch/pytorch/issues/172034
-        - export CMAKE_CUDA_ARCHITECTURES="70;80;86;89;90;100;120"
+        - export CMAKE_CUDA_ARCHITECTURES="90"
         # for vendored cutlass, see https://github.com/NVIDIA/cutlass/blob/v4.0.0/CMakeLists.txt
-        - export CUTLASS_NVCC_ARCHS="70;80;86;89;90;100;120"
+        - export CUTLASS_NVCC_ARCHS="90"
     # CMake is unable to automatically locate the Python include dir for aarch64 for some reason
     - if: aarch64
       then:
@@ -79,7 +77,7 @@ build:
     - match(python, "<3.11") and cuda_compiler_version != "None"
     - aarch64 and use_cuda  # Still have issues locating CUDA for the aarch64 build
     # - not use_cuda  # Just build CUDA for now
-    # - match(python, "!=3.10")  # Until all the builds succeed
+    - match(python, "!=3.13")  # Until all the builds succeed
 
 requirements:
   build:
@@ -132,21 +130,23 @@ requirements:
     # print("\n    - ".join(sorted([x.split("#")[0] for x in reqs.splitlines()])))
     # if done like that, it obviously needs manual fix-ups though (check the diff!)
     - aiohttp
+    - anthropic ==0.71.0
     - blake3
     - cachetools
     - cbor2
     - cloudpickle
-    - compressed-tensors ==0.11.0
-    - depyf ==0.19.0
+    - compressed-tensors ==0.12.2
+    - depyf ==0.20.0
     - diskcache ==5.6.3
     - einops
     - fastapi >=0.115.0
     - filelock >=3.16.1
     - gguf >=0.13.0
     - lark ==1.2.2
-    - llguidance >=0.7.11,<0.8.0
+    - llguidance >=1.3.0,<1.4.0
     - lm-format-enforcer ==0.11.3
-    - mistral-common >=1.8.2
+    - mistral-common >=1.8.5
+    - model-hosting-container-standards <1.0.0
     - msgspec
     - ninja
     - numba ==0.61.2
@@ -163,7 +163,7 @@ requirements:
     - psutil
     - py-cpuinfo
     - pybase64
-    - pydantic >=2.11.7
+    - pydantic >=2.12.0
     - python-json-logger
     - pytorch ==${{ pytorch_version }}
     - pyyaml
@@ -176,24 +176,25 @@ requirements:
     - tiktoken >=0.6.0
     - tokenizers >=0.21.1
     - tqdm
-    - transformers >=4.55.2
+    - transformers >=4.56.0,<5
     - typing_extensions >=4.10
     - watchfiles
-    - xgrammar ==0.1.23
+    - xgrammar ==0.1.25
     - if: match(python, ">3.11")
       then:
         - six >=1.16.0
-        - setuptools >=77.0.3,<80
+        - setuptools >=77.0.3,<81
     - if: use_cuda
       then:
         # see # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cuda.txt
         - pytorch ==${{ pytorch_version }} [build=cuda*]
+        - flashinfer-python ==0.5.2
         - ray-cgraph >=2.48
         - torchaudio ==${{ pytorch_version }}
-        - torchvision ==0.23.0
+        - torchvision ==0.24.0
         - if: linux64
           then:
-            - xformers ==0.0.32.*
+            - xformers ==0.0.33.*
       else:
         # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cpu.txt;
         # some are in common already (py-cpuinfo), some move there because they're in both cpu&cuda (numba)
@@ -219,13 +220,13 @@ tests:
         - if: linux and use_cuda
           then:
             - vllm.vllm_flash_attn
-      pip_check: false
+      pip_check: true
   - script:
     # As of vllm v0.9 and later, it seems like libcuda.so.1 is required for the CLI for CUDA builds (stub libraries don't work)
     # We can't test this on the CPU runners, which is what we're using to build the wheel
-    - if: not use_cuda
-      then:
-        - vllm --version
+      - if: not use_cuda
+        then:
+          - vllm --version
   - files:
       source:
         - tests/

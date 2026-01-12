@@ -1,4 +1,4 @@
-From 09cec5887b097d35b4109e4c9e5272af9ad94b4d Mon Sep 17 00:00:00 2001
+From f7a7491a1436b6ab1785b62244d04953cccb6ff7 Mon Sep 17 00:00:00 2001
 From: Sherman Siu <s8siu@uwaterloo.ca>
 Date: Mon, 21 Jul 2025 05:05:36 -0400
 Subject: [PATCH 3/7] Manually define gettid
@@ -9,7 +9,7 @@ Subject: [PATCH 3/7] Manually define gettid
  1 file changed, 3 insertions(+)
 
 diff --git a/csrc/cpu/utils.cpp b/csrc/cpu/utils.cpp
-index 02514edce..e605da905 100644
+index c5a48352e..11030a821 100644
 --- a/csrc/cpu/utils.cpp
 +++ b/csrc/cpu/utils.cpp
 @@ -12,6 +12,9 @@

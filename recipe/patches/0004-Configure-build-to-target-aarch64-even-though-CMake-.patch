@@ -1,0 +1,27 @@
+From 66fc9cf8fd6633475466de90589e3ae2142d9e1d Mon Sep 17 00:00:00 2001
+From: Sherman Siu <s8siu@uwaterloo.ca>
+Date: Sun, 31 Aug 2025 20:37:56 -0400
+Subject: [PATCH 4/7] Configure build to target aarch64 even though CMake finds
+ x86_64 hardware
+
+---
+ cmake/cpu_extension.cmake | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/cmake/cpu_extension.cmake b/cmake/cpu_extension.cmake
+index aa8412581..99577558e 100644
+--- a/cmake/cpu_extension.cmake
++++ b/cmake/cpu_extension.cmake
+@@ -105,6 +105,12 @@ else()
+     find_isa(${CPUINFO} "v" RVV_FOUND) # Check for RISC-V RVV support
+ endif()
+ 
++
++set(ASIMD_FOUND TRUE)
++set(AVX512_FOUND FALSE)
++set(AVX2_FOUND FALSE)
++
++
+ if (AVX512_FOUND AND NOT AVX512_DISABLED)
+     list(APPEND CXX_COMPILE_FLAGS
+         "-mavx512f"
