@@ -1,4 +1,4 @@
-From 4783e442a76315b62a1f2e683076b9bf580b44ae Mon Sep 17 00:00:00 2001
+From d17eaf4dd8560723940828f480e07ce047dbdde2 Mon Sep 17 00:00:00 2001
 From: Sherman Siu <s8siu@uwaterloo.ca>
 Date: Sun, 31 Aug 2025 20:37:56 -0400
 Subject: [PATCH 5/7] Configure build to target aarch64 even though CMake finds
@@ -9,10 +9,10 @@ Subject: [PATCH 5/7] Configure build to target aarch64 even though CMake finds
  1 file changed, 6 insertions(+)
 
 diff --git a/cmake/cpu_extension.cmake b/cmake/cpu_extension.cmake
-index 064944632..5d66767d7 100644
+index e0da46e2a..b60767549 100644
 --- a/cmake/cpu_extension.cmake
 +++ b/cmake/cpu_extension.cmake
-@@ -103,6 +103,12 @@ else()
+@@ -101,6 +101,12 @@ else()
      find_isa(${CPUINFO} "S390" S390_FOUND)
  endif()
  
