@@ -67,7 +67,7 @@ build:
     # https://github.com/vllm-project/vllm/blob/v0.10.1/setup.py#L147
     # https://github.com/vllm-project/vllm/blob/v0.10.1/vllm/envs.py#L268
     - export CMAKE_BUILD_TYPE=Release
-    - ${{ PYTHON }} -m pip install . -vv --no-build-isolation --no-deps
+    # - ${{ PYTHON }} -m pip install . -vv --no-build-isolation --no-deps
 
   python:
     entry_points:
@@ -79,7 +79,7 @@ build:
     # We don't have Python 3.13 support until https://github.com/vllm-project/vllm/commit/21dce80ea96bcf033d159c0f952fb274567b315c is released
     - match(python, ">=3.13")
     - aarch64 and use_cuda  # Still have issues locating CUDA for the aarch64 build
-    # - not use_cuda  # Just build CUDA for now
+    - not use_cuda  # Just build CUDA for now
     # - match(python, "!=3.10")  # Until all the builds succeed
 
 requirements:
@@ -188,7 +188,7 @@ requirements:
         - setuptools >=77.0.3,<80
     - if: use_cuda
       then:
-        - pytorch ==${{ pytorch_version }} [build=cuda*]
+        - pytorch * [build=cuda*]
         - ray-cgraph >=2.43.0,!=2.44
         - torchaudio ==${{ pytorch_version }}
         - torchvision ==0.22.1
