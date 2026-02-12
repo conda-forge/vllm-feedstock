@@ -193,7 +193,7 @@ requirements:
         - torchvision ==0.23.0
         - if: linux64
           then:
-            - xformers ==0.0.32.*
+            - xformers 0.0.32.*
       else:
         # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cpu.txt;
         # some are in common already (py-cpuinfo), some move there because they're in both cpu&cuda (numba)
