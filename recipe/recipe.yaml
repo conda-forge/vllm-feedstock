@@ -22,6 +22,7 @@ source:
         then:
           - patches/0005-Configure-build-to-target-aarch64-even-though-CMake-.patch
       - patches/0007-pass-required-CUTLASS_NVCC_ARCHS-through-to-cutlass.patch
+      - patches/0008-Make-model-hosting-container-standards-optional.patch
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   # see https://github.com/vllm-project/vllm/blob/v{{ version }}/cmake/external_projects/vllm_flash_attn.cmake#L41
   - url: https://github.com/vllm-project/flash-attention/archive/29210221863736a08f71a866459e368ad1ac4a95.tar.gz
