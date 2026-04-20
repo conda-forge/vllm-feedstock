@@ -231,7 +231,7 @@ tests:
         - tblib
     script:
       # Pick an arbitrary test to run: some of the other ones rely on a bunch of external packages
-      - pytest ./tests/core/test_scheduler.py
+      - pytest ./tests/config/test_config_utils.py
 
 about:
   homepage: https://github.com/vllm-project/vllm
