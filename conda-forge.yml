@@ -6,7 +6,6 @@ conda_build:
   error_overlinking: true
 conda_forge_output_validation: true
 github_actions:
-  self_hosted: true
   timeout_minutes: 1200
   triggers:
     - push
