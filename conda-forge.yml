@@ -5,9 +5,6 @@ github:
 conda_build:
   error_overlinking: true
 conda_forge_output_validation: true
-build_platform:
-  osx_arm64: osx_64
-  linux_aarch64: linux_64
 github_actions:
   self_hosted: true
   timeout_minutes: 1200
@@ -16,4 +13,6 @@ github_actions:
     - pull_request
 provider:
   linux_64: github_actions
+  osx_arm64: azure
+  linux_aarch64: azure
 test: native_and_emulated
