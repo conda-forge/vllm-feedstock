@@ -107,6 +107,7 @@ requirements:
     - wheel
     - if: linux
       then:
+        - libgomp
         - libnuma
     - if: use_cuda
       then:
