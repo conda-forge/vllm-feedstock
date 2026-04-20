@@ -1,0 +1,16 @@
+diff --git i/cmake/cpu_extension.cmake w/cmake/cpu_extension.cmake
+index 8d74d6d5d..fa8fd10d3 100644
+--- i/cmake/cpu_extension.cmake
++++ w/cmake/cpu_extension.cmake
+@@ -179,6 +179,11 @@ if (ENABLE_X86_ISA OR (ASIMD_FOUND AND NOT APPLE_SILICON_FOUND) OR POWER9_FOUND
+         # and create a local shim dir with it
+         vllm_prepare_torch_gomp_shim(VLLM_TORCH_GOMP_SHIM_DIR)
+ 
++        # Fall back to $PREFIX/lib when PyTorch does not bundle libgomp
++        # (e.g. conda-forge, which ships it as a separate package)
++        if(NOT VLLM_TORCH_GOMP_SHIM_DIR)
++            set(VLLM_TORCH_GOMP_SHIM_DIR "$ENV{PREFIX}/lib")
++        endif()
+         find_library(OPEN_MP
+             NAMES gomp
+             PATHS ${VLLM_TORCH_GOMP_SHIM_DIR}
