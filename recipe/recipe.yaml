@@ -115,6 +115,7 @@ requirements:
         - cuda-nvrtc-static
         - cuda-version ==${{ cuda_compiler_version }}
         - libcublas-dev
+        - libcusparse-dev
         - nvtx-c
   run:
     - python
