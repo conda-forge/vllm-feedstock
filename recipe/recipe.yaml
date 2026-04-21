@@ -117,6 +117,7 @@ requirements:
         - cuda-nvrtc-dev
         - cuda-nvrtc-static
         - cuda-version ==${{ cuda_compiler_version }}
+        - libcurand-dev
         - libcublas-dev
         - libcusolver-dev
         - libcusparse-dev
