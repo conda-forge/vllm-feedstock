@@ -29,6 +29,10 @@ source:
   - url: https://github.com/vllm-project/flash-attention/archive/29210221863736a08f71a866459e368ad1ac4a95.tar.gz
     sha256: fe98fd6aa07e30203ee0bb9619cb53f30703f71c22bbfa91909aa3b43b7018f1
     target_directory: flash-attention
+  # cutlass is a git submodule of flash-attention (not included in GitHub tarballs)
+  - url: https://github.com/NVIDIA/cutlass/archive/62750a2b75c802660e4894434dc55e839f322277.tar.gz
+    sha256: 78816d6c6d97793b5b59ef2a702174cb85b78dfcefc8fe2489964de2e42f17d2
+    target_directory: flash-attention/csrc/cutlass
 
 build:
   number: ${{ build_number }}
