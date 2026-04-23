@@ -1,3 +1,7 @@
-# https://github.com/conda-forge/.cirun
-github_actions_labels:  # [linux]
-- blacksmith-16vcpu-ubuntu-2404  # [linux and cuda_compiler_version not in (None, "None")]
+# See https://github.com/conda-forge/conda-forge-pinning-feedstock/pull/6910
+# for rationale. This double matrix (with a non-specific linux selector)
+# needs to be paired with the corresponding skips in the recipe.
+# All together allows us to assign GH-hosted for CPU jobs, and large runners for GPU ones.
+github_actions_labels:  # [linux64]
+- default  # [linux64]
+- blacksmith-16vcpu-ubuntu-2404  # [linux64]

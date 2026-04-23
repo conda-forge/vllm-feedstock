@@ -75,6 +75,9 @@ build:
     - aarch64 and use_cuda  # Still have issues locating CUDA for the aarch64 build
     # - not use_cuda  # Just build CUDA for now
     # - match(python, "!=3.10")  # Until all the builds succeed
+    # See XXX on why we need this skip to distinguish runners for GPU builds vs CPU builds
+    - cuda_compiler_version == "None" and "default" != github_actions_labels  # skip CPU on large runners
+    - cuda_compiler_version != "None" and "default" == github_actions_labels  # skip GPU on GH-hosted
 
 requirements:
   build:
