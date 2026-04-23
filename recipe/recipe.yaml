@@ -24,6 +24,7 @@ source:
       - patches/0007-pass-required-CUTLASS_NVCC_ARCHS-through-to-cutlass.patch
       - patches/0008-Make-model-hosting-container-standards-optional.patch
       - patches/0009-Fall-back-to-PREFIX-lib-for-libgomp-when-not-bundled.patch
+      - patches/0010-Allow-skipping-ACL-via-VLLM_SKIP_ACL-env-var.patch
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   # see https://github.com/vllm-project/vllm/blob/v{{ version }}/cmake/external_projects/vllm_flash_attn.cmake#L41
   - url: https://github.com/vllm-project/flash-attention/archive/29210221863736a08f71a866459e368ad1ac4a95.tar.gz
@@ -57,6 +58,10 @@ build:
         - export CMAKE_CUDA_ARCHITECTURES="70;80;86;89;90;100;120"
         # for vendored cutlass, see https://github.com/NVIDIA/cutlass/blob/v4.0.0/CMakeLists.txt
         - export CUTLASS_NVCC_ARCHS="70;80;86;89;90;100;120"
+    # ACL (Arm Compute Library) is not packaged in conda-forge; skip it
+    - if: aarch64
+      then:
+        - export VLLM_SKIP_ACL=1
     # CMake is unable to automatically locate the Python include dir for aarch64 for some reason
     - if: aarch64
       then:
