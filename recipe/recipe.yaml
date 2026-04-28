@@ -1,8 +1,8 @@
 context:
-  version: 0.19.1
-  build_number: 1
+  version: 0.20.0
+  build_number: 0
   use_cuda: ${{ cuda_compiler_version != "None" }}
-  pytorch_version: 2.10.0
+  pytorch_version: 2.11.0
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
   cuda_build_string: cuda${{ cuda_compiler_version | version_to_buildstring }}
   string_prefix: ${{ cuda_build_string if cuda_compiler_version != "None" else "cpu" }}
@@ -14,7 +14,7 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/v/vllm/vllm-${{ version }}.tar.gz
-    sha256: 9fb88ce6b50991eba41d183584f65f51d7f6015d86a42cdabf79c1c8bd5d66fa
+    sha256: a6d50152936ee292455af3ffbe359f7a284ac43bf3b68caccf29f368e196cc72
     patches:
       - patches/0001-Search-for-the-CUDA-package-in-CMakeLists.patch
       - patches/0002-Remove-ninja-pip-requirement.patch
@@ -79,7 +79,7 @@ build:
     - aarch64 and use_cuda  # Still have issues locating CUDA for the aarch64 build
     # - not use_cuda  # Just build CUDA for now
     # - match(python, "!=3.10")  # Until all the builds succeed
-    # See XXX on why we need this skip to distinguish runners for GPU builds vs CPU builds
+    # See https://github.com/conda-forge/conda-forge-pinning-feedstock/pull/6910 on why we need this skip to distinguish runners for GPU builds vs CPU builds
     - cuda_compiler_version == "None" and "default" != github_actions_labels  # skip CPU on large runners
     - cuda_compiler_version != "None" and "default" == github_actions_labels  # skip GPU on GH-hosted
 
@@ -153,10 +153,10 @@ requirements:
     - llguidance >=1.3.0,<1.4.0
     - lm-format-enforcer ==0.11.3
     - mcp
-    - mistral-common >=1.10.0
+    - mistral-common >=1.11.0
     - msgspec
     - ninja
-    - numba ==0.61.2
+    - numba ==0.65.0
     - numpy
     - openai >=2.0.0
     - openai-harmony >=0.0.3
@@ -164,12 +164,13 @@ requirements:
     - opentelemetry-api >=1.27.0
     - opentelemetry-exporter-otlp >=1.27.0
     - opentelemetry-sdk >=1.27.0
-    - outlines-core ==0.2.11
+    - outlines-core ==0.2.14
     - partial-json-parser
     - pillow
     - prometheus-fastapi-instrumentator >=7.0.0
     - prometheus_client >=0.18.0
-    - protobuf >=5.29.6
+    # Exclude Protobuf versions due to CVE-2026-0994
+    - protobuf >=5.29.6,!=6.30,!=6.31,!=6.32,!=6.33.0,!=6.33.1,!=6.33.2,!=6.33.3,!=6.33.4
     - psutil
     - py-cpuinfo
     - pybase64
@@ -185,7 +186,7 @@ requirements:
     - tiktoken >=0.6.0
     - tokenizers >=0.21.1
     - tqdm
-    - transformers >=4.56.0
+    - transformers >=4.56.0,!=5.0,!=5.1,!=5.2,!=5.3,!=5.4,!=5.5.0
     - typing_extensions >=4.10
     - watchfiles
     - xgrammar >=0.1.32,<1.0.0
@@ -198,9 +199,10 @@ requirements:
         # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cuda.txt
         - pytorch ==${{ pytorch_version }} [build=cuda*]
         - torchaudio ==${{ pytorch_version }}
-        - torchvision ==0.25.0
+        - torchvision ==0.26.0
       else:
         # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cpu.txt;
+        # and https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/build/cpu.txt;
         # some are in common already (py-cpuinfo), some move there because they're in both cpu&cuda (numba)
         - packaging >=24.2
         - torchaudio
@@ -240,7 +242,7 @@ tests:
         - tblib
     script:
       # Pick an arbitrary test to run: some of the other ones rely on a bunch of external packages
-      - pytest ./tests/config/test_config_utils.py
+      - pytest ./tests/v1/core/test_scheduler.py
 
 about:
   homepage: https://github.com/vllm-project/vllm
