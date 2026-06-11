@@ -1,6 +1,6 @@
 context:
   version: 0.19.1
-  build_number: 0
+  build_number: 1
   use_cuda: ${{ cuda_compiler_version != "None" }}
   pytorch_version: 2.10.0
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
@@ -63,12 +63,7 @@ build:
       then:
         - export VLLM_SKIP_ACL=1
     # CMake is unable to automatically locate the Python include dir for aarch64 for some reason
-    - if: aarch64
-      then:
         - export CMAKE_ARGS="$CMAKE_ARGS -DPython_INCLUDE_DIR="$(python -c 'import sysconfig; print(sysconfig.get_path("include"))')""
-    # ensure we don't use the default CMAKE_BUILD_TYPE=RelWithDebInfo, see
-    # https://github.com/vllm-project/vllm/blob/v0.19.1/setup.py#L147
-    # https://github.com/vllm-project/vllm/blob/v0.19.1/vllm/envs.py#L268
     - export CMAKE_BUILD_TYPE=Release
     - ${{ PYTHON }} -m pip install . -vv --no-build-isolation --no-deps
 
@@ -230,9 +225,9 @@ tests:
   - script:
     # As of vllm v0.9 and later, it seems like libcuda.so.1 is required for the CLI for CUDA builds (stub libraries don't work)
     # We can't test this on the CPU runners, which is what we're using to build the wheel
-    - if: not use_cuda
-      then:
-        - vllm --version
+      - if: not use_cuda
+        then:
+          - vllm --version
   - files:
       source:
         - tests/
