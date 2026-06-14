@@ -1,8 +1,8 @@
 context:
-  version: 0.19.1
+  version: 0.23.0
   build_number: 0
   use_cuda: ${{ cuda_compiler_version != "None" }}
-  pytorch_version: 2.10.0
+  pytorch_version: 2.11.0
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
   cuda_build_string: cuda${{ cuda_compiler_version | version_to_buildstring }}
   string_prefix: ${{ cuda_build_string if cuda_compiler_version != "None" else "cpu" }}
@@ -14,7 +14,7 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/v/vllm/vllm-${{ version }}.tar.gz
-    sha256: 9fb88ce6b50991eba41d183584f65f51d7f6015d86a42cdabf79c1c8bd5d66fa
+    sha256: 760269db3d9611e12e524681df1bca0977d5d2f5fcb4481cc34d33efc4ae7ff5
     patches:
       - patches/0001-Search-for-the-CUDA-package-in-CMakeLists.patch
       - patches/0002-Remove-ninja-pip-requirement.patch
@@ -23,12 +23,11 @@ source:
           - patches/0005-Configure-build-to-target-aarch64-even-though-CMake-.patch
       - patches/0007-pass-required-CUTLASS_NVCC_ARCHS-through-to-cutlass.patch
       - patches/0008-Make-model-hosting-container-standards-optional.patch
-      - patches/0009-Fall-back-to-PREFIX-lib-for-libgomp-when-not-bundled.patch
       - patches/0010-Allow-skipping-ACL-via-VLLM_SKIP_ACL-env-var.patch
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   # see https://github.com/vllm-project/vllm/blob/v{{ version }}/cmake/external_projects/vllm_flash_attn.cmake#L41
-  - url: https://github.com/vllm-project/flash-attention/archive/29210221863736a08f71a866459e368ad1ac4a95.tar.gz
-    sha256: fe98fd6aa07e30203ee0bb9619cb53f30703f71c22bbfa91909aa3b43b7018f1
+  - url: https://github.com/vllm-project/flash-attention/archive/803020a8fa15407871341d41eba4919ade2ee1ee.tar.gz
+    sha256: f7885c9b3735c33c89b886436531379ba8ffc5537ef7dd4b0199fe085049f824
     target_directory: flash-attention
   # cutlass is a git submodule of flash-attention (not included in GitHub tarballs)
   - url: https://github.com/NVIDIA/cutlass/archive/62750a2b75c802660e4894434dc55e839f322277.tar.gz
@@ -39,11 +38,8 @@ build:
   number: ${{ build_number }}
   string: ${{ string_prefix }}_py${{ python | version_to_buildstring }}h${{ hash }}_${{ build_number }}
   script:
-    - sed -i.bak 's/set(TORCH_SUPPORTED_VERSION_CUDA "2.4.0")/set(TORCH_SUPPORTED_VERSION_CUDA "${{ pytorch_version }}")/g' flash-attention/CMakeLists.txt
     - export VLLM_FLASH_ATTN_SRC_DIR=$SRC_DIR/flash-attention
     - python use_existing_torch.py
-    - mkdir -p $SRC_DIR/third_party/NVTX/c
-    - ln -s $PREFIX/include $SRC_DIR/third_party/NVTX/c/include
     - export VERBOSE=1
     - export VLLM_TARGET_DEVICE=${{ vllm_target_device }}
     - if: use_cuda
@@ -67,8 +63,8 @@ build:
       then:
         - export CMAKE_ARGS="$CMAKE_ARGS -DPython_INCLUDE_DIR="$(python -c 'import sysconfig; print(sysconfig.get_path("include"))')""
     # ensure we don't use the default CMAKE_BUILD_TYPE=RelWithDebInfo, see
-    # https://github.com/vllm-project/vllm/blob/v0.19.1/setup.py#L147
-    # https://github.com/vllm-project/vllm/blob/v0.19.1/vllm/envs.py#L268
+    # https://github.com/vllm-project/vllm/blob/v0.23.0/setup.py#L147
+    # https://github.com/vllm-project/vllm/blob/v0.23.0/vllm/envs.py#L268
     - export CMAKE_BUILD_TYPE=Release
     - ${{ PYTHON }} -m pip install . -vv --no-build-isolation --no-deps
 
@@ -97,6 +93,7 @@ requirements:
     - ${{ stdlib('c') }}
     - ${{ compiler('c') }}
     - ${{ compiler('cxx') }}
+    - ${{ compiler('rust') }}
     - if: use_cuda
       then:
         - ${{ compiler('cuda') }}
@@ -117,6 +114,7 @@ requirements:
     - regex
     - setuptools >=77.0.3,<81.0.0
     - setuptools-scm >=8
+    - setuptools-rust >=1.9.0
     - wheel
     - if: linux
       then:
@@ -146,7 +144,7 @@ requirements:
     - cachetools
     - cbor2
     - cloudpickle
-    - compressed-tensors ==0.15.0.1
+    - compressed-tensors ==0.17.0
     - depyf ==0.20.0
     - diskcache ==5.6.3
     - einops
@@ -155,13 +153,13 @@ requirements:
     - gguf >=0.17.0
     - ijson
     - lark ==1.2.2
-    - llguidance >=1.3.0,<1.4.0
+    - llguidance >=1.7.0,<1.8.0
     - lm-format-enforcer ==0.11.3
     - mcp
-    - mistral-common >=1.10.0
+    - mistral-common >=1.11.3
     - msgspec
     - ninja
-    - numba ==0.61.2
+    - numba ==0.65.0
     - numpy
     - openai >=2.0.0
     - openai-harmony >=0.0.3
@@ -169,12 +167,13 @@ requirements:
     - opentelemetry-api >=1.27.0
     - opentelemetry-exporter-otlp >=1.27.0
     - opentelemetry-sdk >=1.27.0
-    - outlines-core ==0.2.11
+    - opentelemetry-semantic-conventions-ai >=0.4.1
+    - outlines-core ==0.2.14
     - partial-json-parser
     - pillow
     - prometheus-fastapi-instrumentator >=7.0.0
     - prometheus_client >=0.18.0
-    - protobuf >=5.29.6
+    - protobuf >=5.29.6,!=6.30.*,!=6.31.*,!=6.32.*
     - psutil
     - py-cpuinfo
     - pybase64
@@ -185,15 +184,16 @@ requirements:
     - pyzmq >=25.0.0
     - regex
     - requests >=2.26.0
+    - safetensors >=0.6.2
     - sentencepiece
     - setproctitle
     - tiktoken >=0.6.0
     - tokenizers >=0.21.1
     - tqdm
-    - transformers >=4.56.0
+    - transformers >=5.5.3
     - typing_extensions >=4.10
     - watchfiles
-    - xgrammar >=0.1.32,<1.0.0
+    - xgrammar >=0.2.1,<1.0.0
     - if: match(python, ">3.11")
       then:
         - six >=1.16.0
@@ -203,7 +203,7 @@ requirements:
         # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cuda.txt
         - pytorch ==${{ pytorch_version }} [build=cuda*]
         - torchaudio ==${{ pytorch_version }}
-        - torchvision ==0.25.0
+        - torchvision ==0.26.0
       else:
         # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cpu.txt;
         # some are in common already (py-cpuinfo), some move there because they're in both cpu&cuda (numba)

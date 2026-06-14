@@ -1,11 +1,11 @@
-diff --git i/vllm/entrypoints/sagemaker/api_router.py w/vllm/entrypoints/sagemaker/api_router.py
-index e8c48d1c6..e3db110e9 100644
---- i/vllm/entrypoints/sagemaker/api_router.py
-+++ w/vllm/entrypoints/sagemaker/api_router.py
+diff --git i/vllm/entrypoints/serve/sagemaker/api_router.py w/vllm/entrypoints/serve/sagemaker/api_router.py
+index 0000000..0000001 100644
+--- i/vllm/entrypoints/serve/sagemaker/api_router.py
++++ w/vllm/entrypoints/serve/sagemaker/api_router.py
 @@ -5,7 +5,16 @@ from collections.abc import Awaitable, Callable
  from http import HTTPStatus
  from typing import Any
- 
+
 -import model_hosting_container_standards.sagemaker as sagemaker_standards
 +try:
 +    import model_hosting_container_standards.sagemaker as sagemaker_standards
@@ -21,13 +21,13 @@ index e8c48d1c6..e3db110e9 100644
  from fastapi import APIRouter, Depends, FastAPI, HTTPException, Request
  from fastapi.responses import JSONResponse, Response
 diff --git i/vllm/entrypoints/serve/lora/api_router.py w/vllm/entrypoints/serve/lora/api_router.py
-index 057bf5c2e..054e06cc6 100644
+index 0000000..0000001 100644
 --- i/vllm/entrypoints/serve/lora/api_router.py
 +++ w/vllm/entrypoints/serve/lora/api_router.py
 @@ -2,7 +2,13 @@
  # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
- 
- 
+
+
 -import model_hosting_container_standards.sagemaker as sagemaker_standards
 +try:
 +    import model_hosting_container_standards.sagemaker as sagemaker_standards
@@ -38,4 +38,4 @@ index 057bf5c2e..054e06cc6 100644
 +    sagemaker_standards = _Stub()
  from fastapi import APIRouter, Depends, FastAPI, Request
  from fastapi.responses import JSONResponse, Response
- 
+
