@@ -24,6 +24,9 @@ source:
       - patches/0007-pass-required-CUTLASS_NVCC_ARCHS-through-to-cutlass.patch
       - patches/0008-Make-model-hosting-container-standards-optional.patch
       - patches/0010-Allow-skipping-ACL-via-VLLM_SKIP_ACL-env-var.patch
+      - if: match(python, "<3.11")
+        then:
+          - patches/0011-Skip-spinloop-on-Python-3.10.patch
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   # see https://github.com/vllm-project/vllm/blob/v{{ version }}/cmake/external_projects/vllm_flash_attn.cmake#L41
   - url: https://github.com/vllm-project/flash-attention/archive/803020a8fa15407871341d41eba4919ade2ee1ee.tar.gz
