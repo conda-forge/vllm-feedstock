@@ -196,7 +196,7 @@ requirements:
     - transformers >=5.5.3
     - typing_extensions >=4.10
     - watchfiles
-    - xgrammar >=0.2.1,<1.0.0
+    # xgrammar >=0.2.1,<1.0.0  # not yet packaged on conda-forge
     - if: match(python, ">3.11")
       then:
         - six >=1.16.0
