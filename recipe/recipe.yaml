@@ -1,6 +1,6 @@
 context:
   version: 0.19.1
-  build_number: 1
+  build_number: 2
   use_cuda: ${{ cuda_compiler_version != "None" }}
   pytorch_version: 2.10.0
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
