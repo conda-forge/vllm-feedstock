@@ -1,5 +1,5 @@
 context:
-  version: 0.20.0
+  version: "0.23.0"
   build_number: 0
   use_cuda: ${{ cuda_compiler_version != "None" }}
   pytorch_version: 2.11.0
@@ -14,7 +14,7 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/v/vllm/vllm-${{ version }}.tar.gz
-    sha256: a6d50152936ee292455af3ffbe359f7a284ac43bf3b68caccf29f368e196cc72
+    sha256: 760269db3d9611e12e524681df1bca0977d5d2f5fcb4481cc34d33efc4ae7ff5
     patches:
       - patches/0001-Search-for-the-CUDA-package-in-CMakeLists.patch
       - patches/0002-Remove-ninja-pip-requirement.patch
