@@ -50,7 +50,7 @@ build:
       then:
         - export TORCH_NVCC_FLAGS="-Xfatbin -compress-all"
         # Building vLLM is memory-intensive: see https://github.com/Dao-AILab/flash-attention/issues/1043#issuecomment-2770635000
-        - export MAX_JOBS=3
+        - export MAX_JOBS=5
         # Override the CUDA architectures configured in the conda-forge nvcc package: https://github.com/conda-forge/cuda-nvcc-feedstock/blob/7843e9f1b9ea6bc555cd70c247d774189fc34110/recipe/conda_build_config.yaml#L21-L28
         - export CUDAARCHS="70-real;80-real;86-real;89-real;90a-real;100f-real;120a-real"
         - export TORCH_CUDA_ARCH_LIST="7.0;8.0;8.6;8.9;9.0;10.0;12.0+PTX"
@@ -76,7 +76,6 @@ build:
     - osx and x86_64
     # CUDA builds require Python 3.11+ (some CUDA-only deps dropped 3.10 support)
     - match(python, "<3.11") and cuda_compiler_version != "None"
-    - aarch64 and use_cuda  # Still have issues locating CUDA for the aarch64 build
     # - not use_cuda  # Just build CUDA for now
     # - match(python, "!=3.10")  # Until all the builds succeed
     # See XXX on why we need this skip to distinguish runners for GPU builds vs CPU builds
