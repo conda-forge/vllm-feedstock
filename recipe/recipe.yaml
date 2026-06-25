@@ -27,8 +27,8 @@ source:
       - patches/0010-Allow-skipping-ACL-via-VLLM_SKIP_ACL-env-var.patch
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   # see https://github.com/vllm-project/vllm/blob/v{{ version }}/cmake/external_projects/vllm_flash_attn.cmake#L41
-  - url: https://github.com/vllm-project/flash-attention/archive/f5bc33cfc02c744d24a2e9d50e6db656de40611c.tar.gz
-    sha256: c86a5e742b8596a7e21d340cd0ad4250414f24f843a7b6529e4ad1a896373304
+  - url: https://github.com/vllm-project/flash-attention/archive/dd62dac706b1cf7895bd99b18c6cb7e7e117ee25.tar.gz
+    sha256: 7bd199025944f5fc876d353c5b3b30501f210bdf1a385541949027622045167b
     target_directory: flash-attention
   # cutlass is a git submodule of flash-attention (not included in GitHub tarballs)
   - url: https://github.com/NVIDIA/cutlass/archive/62750a2b75c802660e4894434dc55e839f322277.tar.gz
