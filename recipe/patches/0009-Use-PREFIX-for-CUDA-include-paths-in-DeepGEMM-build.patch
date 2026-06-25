@@ -1,0 +1,40 @@
+From dc88bf41fd1a8449a44878b2cdf3c476a311f21b Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <70274+xhochy@users.noreply.github.com>
+Date: Fri, 26 Jun 2026 08:44:03 +0000
+Subject: [PATCH 9/9] Use PREFIX for CUDA include paths in DeepGEMM build
+
+---
+ tools/build_deepgemm_C.py | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/tools/build_deepgemm_C.py b/tools/build_deepgemm_C.py
+index 67a5274..51936b0 100644
+--- a/tools/build_deepgemm_C.py
++++ b/tools/build_deepgemm_C.py
+@@ -42,6 +42,15 @@ cuda_home = cpp_extension.CUDA_HOME
+ if cuda_home is None:
+     sys.exit("CUDA_HOME not found; cannot build DeepGEMM _C")
+ # CCCL lives outside the standard CUDAToolkit search (mirrors DeepGEMM's setup.py).
++
++# When cross-compiling or when CONDA_PREFIX points to BUILD_PREFIX,
++# pytorch's cpp_extension.include_paths() may miss CUDA library headers
++# (cusparse.h etc.) that are installed in the host prefix ($PREFIX).
++# Override CONDA_PREFIX to PREFIX so that include_paths() adds
++# $PREFIX/targets/$TARGET/include where the headers live.
++if "PREFIX" in os.environ and "CONDA_PREFIX" in os.environ:
++    os.environ["CONDA_PREFIX"] = os.environ["PREFIX"]
++
+ includes = [
+     info["INCLUDEPY"],
+     f"{cuda_home}/include",
+@@ -81,5 +90,10 @@ cmd = [
+     "-o",
+     str(out / f"_C{info['EXT_SUFFIX']}"),
+ ]
++# CUDA libraries (e.g. libnvrtc.so) are installed in $PREFIX/lib,
++# not under CUDA_HOME, so add it explicitly for the linker. This
++# complements the CONDA_PREFIX override above for include paths.
++if "PREFIX" in os.environ:
++    cmd.append(f"-L{os.environ['PREFIX']}/lib")
+ print("[build_deepgemm_C] " + " ".join(cmd), flush=True)
+ subprocess.check_call(cmd)

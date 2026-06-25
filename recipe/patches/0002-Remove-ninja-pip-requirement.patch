@@ -1,20 +1,20 @@
-From 8770306ce9f688791363d8071e169372276b02ba Mon Sep 17 00:00:00 2001
+From c565282083182afc6bca658981575b05deb032ea Mon Sep 17 00:00:00 2001
 From: Sherman Siu <s8siu@uwaterloo.ca>
 Date: Mon, 21 Jul 2025 05:04:55 -0400
-Subject: [PATCH 2/7] Remove ninja pip requirement
+Subject: [PATCH 2/9] Remove ninja pip requirement
 
 ---
  requirements/common.txt | 1 -
  1 file changed, 1 deletion(-)
 
 diff --git a/requirements/common.txt b/requirements/common.txt
-index b8665104b..2691a803e 100644
+index 8b37f3c..7aefa9f 100644
 --- a/requirements/common.txt
 +++ b/requirements/common.txt
-@@ -42,7 +42,6 @@
+@@ -43,7 +43,6 @@ depyf==0.20.0 # required for profiling and debugging with compilation config
  cloudpickle # allows pickling lambda functions in model_executor/models/registry.py
  watchfiles # required for http server to monitor the updates of TLS files
- python-json-logger # Used by logging as per examples/others/logging_configuration.md
+ python-json-logger # Used by logging as per examples/features/logging_configuration.md
 -ninja # Required for xgrammar, rocm, tpu, xpu
  pybase64 # fast base64 implementation
  cbor2 # Required for cross-language serialization of hashable objects

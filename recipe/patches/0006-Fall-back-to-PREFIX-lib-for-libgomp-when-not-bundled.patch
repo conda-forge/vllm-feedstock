@@ -1,0 +1,25 @@
+From ffeaafac24e9069ab6dcfc51565e5c92232b24e1 Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Thu, 25 Jun 2026 10:30:33 +0200
+Subject: [PATCH 6/9] Fall back to PREFIX lib for libgomp when not bundled
+
+---
+ cmake/cpu_extension.cmake | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/cmake/cpu_extension.cmake b/cmake/cpu_extension.cmake
+index 5ba5e98..196dd28 100644
+--- a/cmake/cpu_extension.cmake
++++ b/cmake/cpu_extension.cmake
+@@ -36,6 +36,11 @@ else()
+     # by a distro (common on RISC-V, s390x, Fedora/RHEL aarch64), no vendored libgomp
+     # exists and the shim dir is empty; fall back to the system libgomp in that case.
+     vllm_prepare_torch_gomp_shim(VLLM_TORCH_GOMP_SHIM_DIR)
++    # Fall back to $PREFIX/lib when PyTorch does not bundle libgomp
++    # (e.g. conda-forge, which ships it as a separate package)
++    if(NOT VLLM_TORCH_GOMP_SHIM_DIR)
++        set(VLLM_TORCH_GOMP_SHIM_DIR "$ENV{PREFIX}/lib")
++    endif()
+ 
+     if(VLLM_TORCH_GOMP_SHIM_DIR)
+         find_library(OPEN_MP

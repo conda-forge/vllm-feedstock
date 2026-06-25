@@ -1,0 +1,51 @@
+From 01a1083abe4539c1a2bca96564d29dd9b6287ab1 Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Thu, 25 Jun 2026 10:28:17 +0200
+Subject: [PATCH 5/9] Make model hosting container standards optional
+
+---
+ vllm/entrypoints/serve/lora/api_router.py      |  8 +++++++-
+ vllm/entrypoints/serve/sagemaker/api_router.py | 11 ++++++++++-
+ 2 files changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/vllm/entrypoints/serve/lora/api_router.py b/vllm/entrypoints/serve/lora/api_router.py
+index 511aeaa..ac213d3 100644
+--- a/vllm/entrypoints/serve/lora/api_router.py
++++ b/vllm/entrypoints/serve/lora/api_router.py
+@@ -2,7 +2,13 @@
+ # SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+ 
+ 
+-import model_hosting_container_standards.sagemaker as sagemaker_standards
++try:
++    import model_hosting_container_standards.sagemaker as sagemaker_standards
++except ImportError:
++    class _Stub:
++        def register_load_adapter_handler(self, **kwargs): return lambda fn: fn
++        def register_unload_adapter_handler(self, **kwargs): return lambda fn: fn
++    sagemaker_standards = _Stub()
+ from fastapi import APIRouter, Depends, FastAPI, Request
+ from fastapi.responses import JSONResponse, Response
+ 
+diff --git a/vllm/entrypoints/serve/sagemaker/api_router.py b/vllm/entrypoints/serve/sagemaker/api_router.py
+index 82c094d..8c07f03 100644
+--- a/vllm/entrypoints/serve/sagemaker/api_router.py
++++ b/vllm/entrypoints/serve/sagemaker/api_router.py
+@@ -5,7 +5,16 @@ from collections.abc import Awaitable, Callable
+ from http import HTTPStatus
+ from typing import Any
+ 
+-import model_hosting_container_standards.sagemaker as sagemaker_standards
++try:
++    import model_hosting_container_standards.sagemaker as sagemaker_standards
++except ImportError:
++    class _Stub:
++        def register_ping_handler(self, fn): return fn
++        def register_invocation_handler(self, fn): return fn
++        def stateful_session_manager(self): return lambda fn: fn
++        def inject_adapter_id(self, **kwargs): return lambda fn: fn
++        def bootstrap(self, app): return app
++    sagemaker_standards = _Stub()
+ import pydantic
+ from fastapi import APIRouter, Depends, FastAPI, HTTPException, Request
+ from fastapi.responses import JSONResponse, Response
