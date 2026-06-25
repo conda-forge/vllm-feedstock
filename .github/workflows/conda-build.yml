@@ -4,14 +4,9 @@
 
 name: Build conda package
 on:
-  push:
+  workflow_dispatch:
 
-  pull_request:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
-  cancel-in-progress: true
-
+<<<<<<< HEAD
 jobs:
   build:
     name: ${{ matrix.CONFIG }}
@@ -172,3 +167,13 @@ jobs:
         BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
         FEEDSTOCK_TOKEN: ${{ secrets.FEEDSTOCK_TOKEN }}
         STAGING_BINSTAR_TOKEN: ${{ secrets.STAGING_BINSTAR_TOKEN }}
+||||||| parent of b9e50b7 (Try using 4 JOBS for CUDA)
+=======
+jobs:
+  build:
+    name: Disabled build
+    runs-on: ubuntu-slim
+    if: false
+    steps:
+    - run: exit 0
+>>>>>>> b9e50b7 (Try using 4 JOBS for CUDA)

@@ -1,4 +1,5 @@
 conda_build_tool: rattler-build
+conda_install_tool: pixi
 github:
   branch_name: main
   tooling_branch_name: main
@@ -6,12 +7,12 @@ conda_build:
   error_overlinking: true
 conda_forge_output_validation: true
 github_actions:
-  timeout_minutes: 1200
+  timeout_minutes: 1600
   triggers:
     - push
     - pull_request
 provider:
-  linux_64: github_actions
+  linux_64: default
   osx_arm64: azure
-  linux_aarch64: azure
+  linux_aarch64: default
 test: native_and_emulated

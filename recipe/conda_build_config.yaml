@@ -2,6 +2,8 @@
 # for rationale. This double matrix (with a non-specific linux selector)
 # needs to be paired with the corresponding skips in the recipe.
 # All together allows us to assign GH-hosted for CPU jobs, and large runners for GPU ones.
-github_actions_labels:  # [linux64]
+github_actions_labels:  # [linux64 or aarch64]
 - default  # [linux64]
 - blacksmith-16vcpu-ubuntu-2404  # [linux64]
+- default  # [aarch64]
+- blacksmith-16vcpu-ubuntu-2404-arm  # [aarch64]
