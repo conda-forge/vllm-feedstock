@@ -1,8 +1,8 @@
 context:
-  version: 0.19.1
-  build_number: 1
+  version: 0.20.0
+  build_number: 0
   use_cuda: ${{ cuda_compiler_version != "None" }}
-  pytorch_version: 2.10.0
+  pytorch_version: 2.11.0
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
   cuda_build_string: cuda${{ cuda_compiler_version | version_to_buildstring }}
   string_prefix: ${{ cuda_build_string if cuda_compiler_version != "None" else "cpu" }}
@@ -14,7 +14,7 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/v/vllm/vllm-${{ version }}.tar.gz
-    sha256: 9fb88ce6b50991eba41d183584f65f51d7f6015d86a42cdabf79c1c8bd5d66fa
+    sha256: a6d50152936ee292455af3ffbe359f7a284ac43bf3b68caccf29f368e196cc72
     patches:
       - patches/0001-Search-for-the-CUDA-package-in-CMakeLists.patch
       - patches/0002-Remove-ninja-pip-requirement.patch
@@ -27,8 +27,8 @@ source:
       - patches/0010-Allow-skipping-ACL-via-VLLM_SKIP_ACL-env-var.patch
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   # see https://github.com/vllm-project/vllm/blob/v{{ version }}/cmake/external_projects/vllm_flash_attn.cmake#L41
-  - url: https://github.com/vllm-project/flash-attention/archive/29210221863736a08f71a866459e368ad1ac4a95.tar.gz
-    sha256: fe98fd6aa07e30203ee0bb9619cb53f30703f71c22bbfa91909aa3b43b7018f1
+  - url: https://github.com/vllm-project/flash-attention/archive/f5bc33cfc02c744d24a2e9d50e6db656de40611c.tar.gz
+    sha256: c86a5e742b8596a7e21d340cd0ad4250414f24f843a7b6529e4ad1a896373304
     target_directory: flash-attention
   # cutlass is a git submodule of flash-attention (not included in GitHub tarballs)
   - url: https://github.com/NVIDIA/cutlass/archive/62750a2b75c802660e4894434dc55e839f322277.tar.gz
@@ -105,7 +105,7 @@ requirements:
             - pytorch * [build=cuda*]
   host:
     - python
-    - jinja2 >=3.1.6
+    - jinja2
     - packaging >=24.2
     - pip
     - pytorch ==${{ pytorch_version }}
@@ -153,10 +153,10 @@ requirements:
     - llguidance >=1.3.0,<1.4.0
     - lm-format-enforcer ==0.11.3
     - mcp
-    - mistral-common >=1.10.0
+    - mistral-common >=1.11.0
     - msgspec
     - ninja
-    - numba ==0.61.2
+    - numba ==0.65.0
     - numpy
     - openai >=2.0.0
     - openai-harmony >=0.0.3
@@ -164,7 +164,8 @@ requirements:
     - opentelemetry-api >=1.27.0
     - opentelemetry-exporter-otlp >=1.27.0
     - opentelemetry-sdk >=1.27.0
-    - outlines-core ==0.2.11
+    - opentelemetry-semantic-conventions-ai >=0.4.1
+    - outlines-core ==0.2.14
     - partial-json-parser
     - pillow
     - prometheus-fastapi-instrumentator >=7.0.0
@@ -198,7 +199,7 @@ requirements:
         # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cuda.txt
         - pytorch ==${{ pytorch_version }} [build=cuda*]
         - torchaudio ==${{ pytorch_version }}
-        - torchvision ==0.25.0
+        - torchvision ==0.26.0
       else:
         # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cpu.txt;
         # some are in common already (py-cpuinfo), some move there because they're in both cpu&cuda (numba)
