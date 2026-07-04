@@ -1,8 +1,7 @@
 context:
   version: "0.23.0"
-  build_number: 0
+  build_number: 1
   use_cuda: ${{ cuda_compiler_version != "None" }}
-  pytorch_version: 2.11.0
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
   cuda_build_string: cuda${{ cuda_compiler_version | version_to_buildstring }}
   string_prefix: ${{ cuda_build_string if cuda_compiler_version != "None" else "cpu" }}
@@ -41,7 +40,7 @@ build:
   number: ${{ build_number }}
   string: ${{ string_prefix }}_py${{ python | version_to_buildstring }}h${{ hash }}_${{ build_number }}
   script:
-    - sed -i.bak 's/set(TORCH_SUPPORTED_VERSION_CUDA "2.4.0")/set(TORCH_SUPPORTED_VERSION_CUDA "${{ pytorch_version }}")/g' flash-attention/CMakeLists.txt
+    - sed -i.bak 's/set(TORCH_SUPPORTED_VERSION_CUDA "2.4.0")/set(TORCH_SUPPORTED_VERSION_CUDA "${{ libtorch }}")/g' flash-attention/CMakeLists.txt
     - export VLLM_FLASH_ATTN_SRC_DIR=$SRC_DIR/flash-attention
     - python use_existing_torch.py
     - mkdir -p $SRC_DIR/third_party/NVTX/c
@@ -100,7 +99,7 @@ requirements:
       then:
         - python
         - cross-python_${{ host_platform }}
-        - pytorch ==${{ pytorch_version }}
+        - pytorch ${{ libtorch }}.*
         - if: use_cuda
           then:
             - pytorch * [build=cuda*]
@@ -109,7 +108,7 @@ requirements:
     - jinja2
     - packaging >=24.2
     - pip
-    - pytorch ==${{ pytorch_version }}
+    - pytorch ${{ libtorch }}.*
     - regex
     - setuptools >=77.0.3,<81.0.0
     - setuptools-scm >=8
@@ -178,7 +177,7 @@ requirements:
     - pybase64
     - pydantic >=2.12.0
     - python-json-logger
-    - pytorch ==${{ pytorch_version }}
+    - pytorch ${{ libtorch }}.*
     - pyyaml
     - pyzmq >=25.0.0
     - regex
@@ -199,8 +198,8 @@ requirements:
     - if: use_cuda
       then:
         # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cuda.txt
-        - pytorch ==${{ pytorch_version }} [build=cuda*]
-        - torchaudio ==${{ pytorch_version }}
+        - pytorch ${{ libtorch }}.* [build=cuda*]
+        - torchaudio ${{ libtorch }}.*
         - torchvision ==0.26.0
       else:
         # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cpu.txt;
