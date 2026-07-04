@@ -186,6 +186,8 @@ requirements:
     - setproctitle
     - tiktoken >=0.6.0
     - tokenizers >=0.21.1
+    - torchaudio
+    - torchvision
     - tqdm
     - transformers >=4.56.0
     - typing_extensions >=4.10
@@ -199,14 +201,10 @@ requirements:
       then:
         # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cuda.txt
         - pytorch ${{ libtorch }}.* [build=cuda*]
-        - torchaudio ${{ libtorch }}.*
-        - torchvision ==0.26.0
       else:
         # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cpu.txt;
         # some are in common already (py-cpuinfo), some move there because they're in both cpu&cuda (numba)
         - packaging >=24.2
-        - torchaudio
-        - torchvision
   run_constraints:
     # Fixes issue with incompatibility between old `datasets` versions and `pyarrow` v21+
     # See https://github.com/apache/arrow/issues/47155 for more details.
