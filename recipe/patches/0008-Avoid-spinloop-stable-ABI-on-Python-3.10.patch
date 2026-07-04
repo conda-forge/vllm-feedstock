@@ -1,0 +1,40 @@
+From 6f9c1dbd9de1db30a994db99e13a0e4b07272c98 Mon Sep 17 00:00:00 2001
+From: "Uwe L. Korn" <uwe.korn@quantco.com>
+Date: Thu, 25 Jun 2026 09:00:00 +0200
+Subject: [PATCH 8/9] Avoid spinloop stable ABI on Python 3.10
+
+Py_buffer was added to the stable ABI in Python 3.11. When building with
+Python 3.10, the Py_LIMITED_API=0x030b0000 flag causes a compilation error
+because Py_buffer is not available in the limited API of Python 3.10.
+
+This patch conditionally applies USE_SABI 3.11 only when Python >= 3.11,
+following the upstream fix from PR #43131.
+---
+ CMakeLists.txt | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b11474e..fdb723a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -121,13 +121,19 @@ set(SPINLOOP_COMPILE_FLAGS "")
+ if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|amd64")
+   list(APPEND SPINLOOP_COMPILE_FLAGS "-mmwaitx")
+ endif()
++
++set(SPINLOOP_SABI_ARGS "")
++if(Python_VERSION VERSION_GREATER_EQUAL 3.11)
++  list(APPEND SPINLOOP_SABI_ARGS USE_SABI 3.11)
++endif()
++
+ define_extension_target(
+   spinloop
+   DESTINATION vllm
+   LANGUAGE CXX
+   SOURCES ${VLLM_SPINLOOP_EXT_SRC}
+   COMPILE_FLAGS ${SPINLOOP_COMPILE_FLAGS}
+-  USE_SABI 3.11
++  ${SPINLOOP_SABI_ARGS}
+   WITH_SOABI)
+ 
+ #
