@@ -1,6 +1,6 @@
 context:
-  version: "0.23.0"
-  build_number: 1
+  version: "0.24.0"
+  build_number: 0
   use_cuda: ${{ cuda_compiler_version != "None" }}
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
   cuda_build_string: cuda${{ cuda_compiler_version | version_to_buildstring }}
@@ -13,7 +13,7 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/v/vllm/vllm-${{ version }}.tar.gz
-    sha256: 760269db3d9611e12e524681df1bca0977d5d2f5fcb4481cc34d33efc4ae7ff5
+    sha256: 0862453adc1f3339f1a0c9dca1179c34d6ed6e118f87b6e5bddd120af614ac66
     patches:
       - patches/0001-Search-for-the-CUDA-package-in-CMakeLists.patch
       - patches/0002-Remove-ninja-pip-requirement.patch
@@ -24,12 +24,11 @@ source:
       - patches/0005-Make-model-hosting-container-standards-optional.patch
       - patches/0006-Fall-back-to-PREFIX-lib-for-libgomp-when-not-bundled.patch
       - patches/0007-Allow-skipping-ACL-via-VLLM_SKIP_ACL-env-var.patch
-      - patches/0008-Avoid-spinloop-stable-ABI-on-Python-3.10.patch
       - patches/0009-Use-PREFIX-for-CUDA-include-paths-in-DeepGEMM-build.patch
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   # see https://github.com/vllm-project/vllm/blob/v{{ version }}/cmake/external_projects/vllm_flash_attn.cmake#L41
-  - url: https://github.com/vllm-project/flash-attention/archive/dd62dac706b1cf7895bd99b18c6cb7e7e117ee25.tar.gz
-    sha256: 7bd199025944f5fc876d353c5b3b30501f210bdf1a385541949027622045167b
+  - url: https://github.com/vllm-project/flash-attention/archive/803020a8fa15407871341d41eba4919ade2ee1ee.tar.gz
+    sha256: f7885c9b3735c33c89b886436531379ba8ffc5537ef7dd4b0199fe085049f824
     target_directory: flash-attention
   # cutlass is a git submodule of flash-attention (not included in GitHub tarballs)
   - url: https://github.com/NVIDIA/cutlass/archive/62750a2b75c802660e4894434dc55e839f322277.tar.gz
@@ -148,10 +147,10 @@ requirements:
     - depyf ==0.20.0
     - diskcache ==5.6.3
     - einops
-    - fastapi >=0.115.0,<0.137
+    - fastapi >=0.133.0,<0.137
     - filelock >=3.16.1
-    - gguf >=0.17.0
     - ijson
+    - jsonschema >=4.23.0
     - lark ==1.2.2
     - llguidance >=1.7.0,<1.8.0
     - lm-format-enforcer ==0.11.3
@@ -172,7 +171,7 @@ requirements:
     - outlines-core ==0.2.14
     - partial-json-parser
     - pillow
-    - prometheus-fastapi-instrumentator >=7.0.0
+    - prometheus-fastapi-instrumentator >=8.0.0
     - prometheus_client >=0.18.0
     - protobuf >=5.29.6
     - psutil
@@ -188,15 +187,16 @@ requirements:
     - safetensors >=0.6.2
     - sentencepiece
     - setproctitle
+    - starlette >=1.0.1
     - tiktoken >=0.6.0
     - tokenizers >=0.21.1
     - torchaudio
     - torchvision
     - tqdm
-    - transformers >=4.56.0,!=5.0.*,!=5.1.*,!=5.2.*,!=5.3.*,!=5.4.*,!= 5.5.0
+    - transformers >=5.5.3
     - typing_extensions >=4.10
     - watchfiles
-    - xgrammar >=0.2.0,<1.0.0
+    - xgrammar >=0.2.1,<1.0.0
     - if: match(python, ">3.11")
       then:
         - six >=1.16.0
