@@ -1,8 +1,7 @@
 context:
   version: "0.23.0"
-  build_number: 0
+  build_number: 1
   use_cuda: ${{ cuda_compiler_version != "None" }}
-  pytorch_version: 2.11.0
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
   cuda_build_string: cuda${{ cuda_compiler_version | version_to_buildstring }}
   string_prefix: ${{ cuda_build_string if cuda_compiler_version != "None" else "cpu" }}
@@ -41,7 +40,7 @@ build:
   number: ${{ build_number }}
   string: ${{ string_prefix }}_py${{ python | version_to_buildstring }}h${{ hash }}_${{ build_number }}
   script:
-    - sed -i.bak 's/set(TORCH_SUPPORTED_VERSION_CUDA "2.4.0")/set(TORCH_SUPPORTED_VERSION_CUDA "${{ pytorch_version }}")/g' flash-attention/CMakeLists.txt
+    - sed -i.bak 's/set(TORCH_SUPPORTED_VERSION_CUDA "2.4.0")/set(TORCH_SUPPORTED_VERSION_CUDA "${{ libtorch }}")/g' flash-attention/CMakeLists.txt
     - export VLLM_FLASH_ATTN_SRC_DIR=$SRC_DIR/flash-attention
     - python use_existing_torch.py
     - mkdir -p $SRC_DIR/third_party/NVTX/c
@@ -52,7 +51,9 @@ build:
       then:
         - export TORCH_NVCC_FLAGS="-Xfatbin -compress-all"
         # Building vLLM is memory-intensive: see https://github.com/Dao-AILab/flash-attention/issues/1043#issuecomment-2770635000
-        - export MAX_JOBS=5
+        - if: aarch64
+          then: export MAX_JOBS=9
+          else: export MAX_JOBS=5
         # Override the CUDA architectures configured in the conda-forge nvcc package: https://github.com/conda-forge/cuda-nvcc-feedstock/blob/7843e9f1b9ea6bc555cd70c247d774189fc34110/recipe/conda_build_config.yaml#L21-L28
         - export CUDAARCHS="70-real;80-real;86-real;89-real;90a-real;100f-real;120a-real"
         - export TORCH_CUDA_ARCH_LIST="7.0;8.0;8.6;8.9;9.0;10.0;12.0+PTX"
@@ -100,7 +101,7 @@ requirements:
       then:
         - python
         - cross-python_${{ host_platform }}
-        - pytorch ==${{ pytorch_version }}
+        - pytorch ${{ libtorch }}.*
         - if: use_cuda
           then:
             - pytorch * [build=cuda*]
@@ -109,7 +110,7 @@ requirements:
     - jinja2
     - packaging >=24.2
     - pip
-    - pytorch ==${{ pytorch_version }}
+    - pytorch ${{ libtorch }}.*
     - regex
     - setuptools >=77.0.3,<81.0.0
     - setuptools-scm >=8
@@ -152,10 +153,11 @@ requirements:
     - gguf >=0.17.0
     - ijson
     - lark ==1.2.2
-    - llguidance >=1.3.0,<1.4.0
+    - llguidance >=1.7.0,<1.8.0
     - lm-format-enforcer ==0.11.3
     - mcp
     - mistral-common >=1.11.3
+    # model-hosting-container-standards >=0.1.14,<1.0.0
     - msgspec
     - ninja
     - numba ==0.65.0
@@ -178,20 +180,23 @@ requirements:
     - pybase64
     - pydantic >=2.12.0
     - python-json-logger
-    - pytorch ==${{ pytorch_version }}
+    - pytorch ${{ libtorch }}.*
     - pyyaml
     - pyzmq >=25.0.0
     - regex
     - requests >=2.26.0
+    - safetensors >=0.6.2
     - sentencepiece
     - setproctitle
     - tiktoken >=0.6.0
     - tokenizers >=0.21.1
+    - torchaudio
+    - torchvision
     - tqdm
-    - transformers >=4.56.0
+    - transformers >=4.56.0,!=5.0.*,!=5.1.*,!=5.2.*,!=5.3.*,!=5.4.*,!= 5.5.0
     - typing_extensions >=4.10
     - watchfiles
-    - xgrammar >=0.1.32,<1.0.0
+    - xgrammar >=0.2.0,<1.0.0
     - if: match(python, ">3.11")
       then:
         - six >=1.16.0
@@ -199,15 +204,11 @@ requirements:
     - if: use_cuda
       then:
         # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cuda.txt
-        - pytorch ==${{ pytorch_version }} [build=cuda*]
-        - torchaudio ==${{ pytorch_version }}
-        - torchvision ==0.26.0
+        - pytorch ${{ libtorch }}.* [build=cuda*]
       else:
         # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/cpu.txt;
         # some are in common already (py-cpuinfo), some move there because they're in both cpu&cuda (numba)
         - packaging >=24.2
-        - torchaudio
-        - torchvision
   run_constraints:
     # Fixes issue with incompatibility between old `datasets` versions and `pyarrow` v21+
     # See https://github.com/apache/arrow/issues/47155 for more details.
