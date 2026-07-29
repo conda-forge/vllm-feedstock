@@ -1,5 +1,5 @@
 context:
-  version: "0.24.0"
+  version: "0.25.0"
   build_number: 0
   use_cuda: ${{ cuda_compiler_version != "None" }}
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
@@ -13,7 +13,7 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/v/vllm/vllm-${{ version }}.tar.gz
-    sha256: 0862453adc1f3339f1a0c9dca1179c34d6ed6e118f87b6e5bddd120af614ac66
+    sha256: 7e04e2b37164de8c4012f27f75af6c4768039b32610865e9b6fb8c49c34a84aa
     patches:
       - patches/0001-Search-for-the-CUDA-package-in-CMakeLists.patch
       - patches/0002-Remove-ninja-pip-requirement.patch
@@ -27,8 +27,8 @@ source:
       - patches/0009-Use-PREFIX-for-CUDA-include-paths-in-DeepGEMM-build.patch
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   # see https://github.com/vllm-project/vllm/blob/v{{ version }}/cmake/external_projects/vllm_flash_attn.cmake#L41
-  - url: https://github.com/vllm-project/flash-attention/archive/803020a8fa15407871341d41eba4919ade2ee1ee.tar.gz
-    sha256: f7885c9b3735c33c89b886436531379ba8ffc5537ef7dd4b0199fe085049f824
+  - url: https://github.com/vllm-project/flash-attention/archive/2c839c33742309ec41e620bf837495ec9926c56e.tar.gz
+    sha256: 3aa24a3cb68a2d096e1ec2ed543cbc50b3cf68c2f84b9116f0aa3a3978cfa3de
     target_directory: flash-attention
   # cutlass is a git submodule of flash-attention (not included in GitHub tarballs)
   - url: https://github.com/NVIDIA/cutlass/archive/62750a2b75c802660e4894434dc55e839f322277.tar.gz
@@ -155,7 +155,7 @@ requirements:
     - llguidance >=1.7.0,<1.8.0
     - lm-format-enforcer ==0.11.3
     - mcp
-    - mistral-common >=1.11.3
+    - mistral-common >=1.11.5
     # model-hosting-container-standards >=0.1.14,<1.0.0
     - msgspec
     - ninja
