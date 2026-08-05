@@ -1,6 +1,6 @@
 context:
   version: "0.26.0"
-  build_number: 0
+  build_number: 1
   use_cuda: ${{ cuda_compiler_version != "None" }}
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
   cuda_build_string: cuda${{ cuda_compiler_version | version_to_buildstring }}
