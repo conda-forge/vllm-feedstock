@@ -2,8 +2,17 @@
 # for rationale. This double matrix (with a non-specific linux selector)
 # needs to be paired with the corresponding skips in the recipe.
 # All together allows us to assign GH-hosted for CPU jobs, and large runners for GPU ones.
+cuda_compiler_version:                  # [linux]
+- None                                  # [linux (CPU)]
+- 12.9                                  # [linux (GPU)]
+- 13.0                                  # [linux (GPU)]
 github_actions_labels:                  # [linux]
 - default                               # [linux and x86_64]
 - blacksmith-16vcpu-ubuntu-2404         # [linux and x86_64]
+- blacksmith-16vcpu-ubuntu-2404         # [linux and x86_64]
 - default                               # [linux and aarch64]
 - blacksmith-32vcpu-ubuntu-2404-arm     # [linux and aarch64]
+- blacksmith-32vcpu-ubuntu-2404-arm     # [linux and aarch64]
+zip_keys:                               # [linux]
+- - cuda_compiler_version               # [linux]
+  - github_actions_labels               # [linux]
