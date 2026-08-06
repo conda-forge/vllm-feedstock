@@ -130,7 +130,6 @@ requirements:
     - if: use_cuda
       then:
         - pytorch * [build=cuda*]
-        - cuda-cccl-dev
         - cuda-cudart-dev
         - cuda-nvrtc-dev
         - cuda-nvrtc-static
@@ -140,6 +139,9 @@ requirements:
         - libcusolver-dev
         - libcusparse-dev
         - nvtx-c
+        - if: match(cuda_compiler_version, ">=13")
+          then:
+            - cuda-cccl-dev
   run:
     - python
     # see https://github.com/vllm-project/vllm/blame/v{{ version }}/requirements/common.txt
