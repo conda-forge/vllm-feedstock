@@ -130,6 +130,7 @@ requirements:
     - if: use_cuda
       then:
         - pytorch * [build=cuda*]
+        - cuda-cccl-dev
         - cuda-cudart-dev
         - cuda-nvrtc-dev
         - cuda-nvrtc-static
