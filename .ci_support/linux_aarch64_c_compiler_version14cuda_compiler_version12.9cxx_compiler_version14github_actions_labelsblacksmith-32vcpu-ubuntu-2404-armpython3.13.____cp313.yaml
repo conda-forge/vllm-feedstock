@@ -23,13 +23,13 @@ docker_image:
 github_actions_labels:
 - blacksmith-32vcpu-ubuntu-2404-arm
 libtorch:
-- '2.11'
+- '2.12'
 pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.12.* *_cpython
+- 3.13.* *_cp313
 target_platform:
 - linux-aarch64
 zip_keys:
