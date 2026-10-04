@@ -98,6 +98,7 @@ requirements:
     - if: use_cuda
       then:
         - ${{ compiler('cuda') }}
+        - cuda-cccl
     - if: is_cross_compiling
       then:
         - python
