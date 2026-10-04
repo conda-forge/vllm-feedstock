@@ -1,6 +1,6 @@
 context:
   version: "0.27.1"
-  build_number: 1
+  build_number: 2
   use_cuda: ${{ cuda_compiler_version != "None" }}
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
   cuda_build_string: cuda${{ cuda_compiler_version | version_to_buildstring }}
@@ -54,12 +54,12 @@ build:
           then: export MAX_JOBS=9
           else: export MAX_JOBS=5
         # Override the CUDA architectures configured in the conda-forge nvcc package: https://github.com/conda-forge/cuda-nvcc-feedstock/blob/7843e9f1b9ea6bc555cd70c247d774189fc34110/recipe/conda_build_config.yaml#L21-L28
-        - export CUDAARCHS="70-real;80-real;86-real;89-real;90a-real;100f-real;120a-real"
-        - export TORCH_CUDA_ARCH_LIST="7.0;8.0;8.6;8.9;9.0;10.0;12.0+PTX"
+        - export CUDAARCHS="80-real;86-real;89-real;90a-real;100f-real;120a-real"
+        - export TORCH_CUDA_ARCH_LIST="8.0;8.6;8.9;9.0;10.0;12.0+PTX"
         # not usable with pytorch: https://github.com/pytorch/pytorch/issues/172034
-        - export CMAKE_CUDA_ARCHITECTURES="70;80;86;89;90;100;120"
+        - export CMAKE_CUDA_ARCHITECTURES="80;86;89;90;100;120"
         # for vendored cutlass, see https://github.com/NVIDIA/cutlass/blob/v4.0.0/CMakeLists.txt
-        - export CUTLASS_NVCC_ARCHS="70;80;86;89;90;100;120"
+        - export CUTLASS_NVCC_ARCHS="80;86;89;90;100;120"
     # ACL (Arm Compute Library) is not packaged in conda-forge; skip it
     - if: aarch64
       then:
@@ -78,6 +78,8 @@ build:
     - osx and x86_64
     # CUDA builds require Python 3.11+ (some CUDA-only deps dropped 3.10 support)
     - match(python, "<3.11") and cuda_compiler_version != "None"
+    # flash-attention (vendored, see sources above) does not support Python 3.14 yet
+    - match(python, ">=3.14")
     # - not use_cuda  # Just build CUDA for now
     # - match(python, "!=3.10")  # Until all the builds succeed
     # See XXX on why we need this skip to distinguish runners for GPU builds vs CPU builds
@@ -96,6 +98,7 @@ requirements:
     - if: use_cuda
       then:
         - ${{ compiler('cuda') }}
+        - cuda-cccl
     - if: is_cross_compiling
       then:
         - python

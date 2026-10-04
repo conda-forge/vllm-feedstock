@@ -4,14 +4,14 @@ Date: Fri, 26 Jun 2026 08:44:03 +0000
 Subject: [PATCH 9/9] Use PREFIX for CUDA include paths in DeepGEMM build
 
 ---
- tools/build_deepgemm_C.py | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ tools/build_deepgemm_C.py | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
 diff --git a/tools/build_deepgemm_C.py b/tools/build_deepgemm_C.py
-index 67a5274..51936b0 100644
+index 67a5274..ce1c70e 100644
 --- a/tools/build_deepgemm_C.py
 +++ b/tools/build_deepgemm_C.py
-@@ -42,6 +42,15 @@ cuda_home = cpp_extension.CUDA_HOME
+@@ -42,10 +42,27 @@ cuda_home = cpp_extension.CUDA_HOME
  if cuda_home is None:
      sys.exit("CUDA_HOME not found; cannot build DeepGEMM _C")
  # CCCL lives outside the standard CUDAToolkit search (mirrors DeepGEMM's setup.py).
@@ -24,10 +24,23 @@ index 67a5274..51936b0 100644
 +if "PREFIX" in os.environ and "CONDA_PREFIX" in os.environ:
 +    os.environ["CONDA_PREFIX"] = os.environ["PREFIX"]
 +
++# conda-forge's cuda-cccl package installs headers under
++# $PREFIX/targets/<platform>/include/cccl, not $CUDA_HOME/include/cccl
++# (NVIDIA's upstream toolkit layout); fall back to the latter outside conda.
++cccl_include = next(
++    Path(cuda_home).glob("targets/*/include/cccl"),
++    Path(f"{cuda_home}/include/cccl"),
++)
++
  includes = [
      info["INCLUDEPY"],
      f"{cuda_home}/include",
-@@ -81,5 +90,10 @@ cmd = [
+-    f"{cuda_home}/include/cccl",
++    str(cccl_include),
+     str(src / "csrc"),
+     str(src / "deep_gemm/include"),
+     str(src / "third-party/cutlass/include"),
+@@ -81,5 +98,10 @@ cmd = [
      "-o",
      str(out / f"_C{info['EXT_SUFFIX']}"),
  ]
