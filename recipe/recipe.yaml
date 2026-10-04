@@ -78,6 +78,8 @@ build:
     - osx and x86_64
     # CUDA builds require Python 3.11+ (some CUDA-only deps dropped 3.10 support)
     - match(python, "<3.11") and cuda_compiler_version != "None"
+    # flash-attention (vendored, see sources above) does not support Python 3.14 yet
+    - match(python, ">=3.14")
     # - not use_cuda  # Just build CUDA for now
     # - match(python, "!=3.10")  # Until all the builds succeed
     # See XXX on why we need this skip to distinguish runners for GPU builds vs CPU builds
