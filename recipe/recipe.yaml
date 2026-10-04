@@ -25,6 +25,7 @@ source:
       - patches/0006-Fall-back-to-PREFIX-lib-for-libgomp-when-not-bundled.patch
       - patches/0007-Allow-skipping-ACL-via-VLLM_SKIP_ACL-env-var.patch
       - patches/0009-Use-PREFIX-for-CUDA-include-paths-in-DeepGEMM-build.patch
+      - patches/0010-Fall-back-to-PREFIX-include-for-torch-stable-heade.patch
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   # see https://github.com/vllm-project/vllm/blob/v{{ version }}/cmake/external_projects/vllm_flash_attn.cmake#L41
   - url: https://github.com/vllm-project/flash-attention/archive/28e862d21806bc3580207aa0ad4e2759151e9827.tar.gz
