@@ -5,7 +5,7 @@
 
 [workspace]
 name = "vllm-feedstock"
-version = "2026.8.9"  # conda-smithy version used to generate this file
+version = "2026.9.23"  # conda-smithy version used to generate this file
 description = "Pixi configuration for conda-forge/vllm-feedstock"
 authors = ["@conda-forge/vllm"]
 channels = ["conda-forge"]
@@ -37,168 +37,258 @@ description = "List contents of all packages found in rattler-build build direct
 [feature.build.tasks.build]
 cmd = "rattler-build build --recipe recipe"
 description = "Build vllm-feedstock directly (without setup scripts), no particular variant specified"
-[feature.build.tasks."build-linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython directly (without setup scripts)"
-[feature.build.tasks."debug-linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython.yaml"
-description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython"
-[feature.build.tasks."build-linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython directly (without setup scripts)"
-[feature.build.tasks."debug-linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython.yaml"
-description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython"
-[feature.build.tasks."build-linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313.yaml"
-description = "Build vllm-feedstock with variant linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313 directly (without setup scripts)"
-[feature.build.tasks."debug-linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313.yaml"
-description = "Build vllm-feedstock with variant linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313 directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313.yaml"
-description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313"
-[feature.build.tasks."build-linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython directly (without setup scripts)"
-[feature.build.tasks."debug-linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython.yaml"
-description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython"
-[feature.build.tasks."build-linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython directly (without setup scripts)"
-[feature.build.tasks."debug-linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython.yaml"
-description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython"
-[feature.build.tasks."build-linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython directly (without setup scripts)"
-[feature.build.tasks."debug-linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython.yaml"
-description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython"
-[feature.build.tasks."build-linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313.yaml"
-description = "Build vllm-feedstock with variant linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313 directly (without setup scripts)"
-[feature.build.tasks."debug-linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313.yaml"
-description = "Build vllm-feedstock with variant linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313 directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313.yaml"
-description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313"
-[feature.build.tasks."build-linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython directly (without setup scripts)"
-[feature.build.tasks."debug-linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython.yaml"
-description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython"
-[feature.build.tasks."build-linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython directly (without setup scripts)"
-[feature.build.tasks."debug-linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython.yaml"
-description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython"
-[feature.build.tasks."build-linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313.yaml"
-description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313 directly (without setup scripts)"
-[feature.build.tasks."debug-linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313.yaml"
-description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313 directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313.yaml"
-description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version14cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313"
-[feature.build.tasks."build-linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython directly (without setup scripts)"
-[feature.build.tasks."debug-linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython.yaml"
-description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.10.____cpython"
-[feature.build.tasks."build-linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython directly (without setup scripts)"
-[feature.build.tasks."debug-linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython.yaml"
-description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython"
-[feature.build.tasks."build-linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython directly (without setup scripts)"
-[feature.build.tasks."debug-linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython.yaml"
-description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython.yaml"
-description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython"
-[feature.build.tasks."build-linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313.yaml"
-description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313 directly (without setup scripts)"
-[feature.build.tasks."debug-linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313.yaml"
-description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313 directly (without setup scripts)"
-[feature.build.tasks."inspect-linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313.yaml"
-description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version15cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313"
-[feature.build.tasks."build-osx_arm64_python3.10.____cpython"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_python3.10.____cpython.yaml"
-description = "Build vllm-feedstock with variant osx_arm64_python3.10.____cpython directly (without setup scripts)"
-[feature.build.tasks."debug-osx_arm64_python3.10.____cpython"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_python3.10.____cpython.yaml"
-description = "Build vllm-feedstock with variant osx_arm64_python3.10.____cpython directly (without setup scripts)"
-[feature.build.tasks."inspect-osx_arm64_python3.10.____cpython"]
-cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_python3.10.____cpython.yaml"
-description = "List contents of vllm-feedstock packages built for variant osx_arm64_python3.10.____cpython"
+[feature.build.tasks."build-linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython.yaml --target-platform linux-64"
+description = "Build vllm-feedstock with variant linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython.yaml --target-platform linux-64"
+description = "Debug vllm-feedstock with variant linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython"
+[feature.build.tasks."build-linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython.yaml --target-platform linux-64"
+description = "Build vllm-feedstock with variant linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython.yaml --target-platform linux-64"
+description = "Debug vllm-feedstock with variant linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython"
+[feature.build.tasks."build-linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313.yaml --target-platform linux-64"
+description = "Build vllm-feedstock with variant linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313.yaml --target-platform linux-64"
+description = "Debug vllm-feedstock with variant linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313"
+[feature.build.tasks."build-linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314.yaml --target-platform linux-64"
+description = "Build vllm-feedstock with variant linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314.yaml --target-platform linux-64"
+description = "Debug vllm-feedstock with variant linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314"
+[feature.build.tasks."build-linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython.yaml --target-platform linux-64"
+description = "Build vllm-feedstock with variant linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython.yaml --target-platform linux-64"
+description = "Debug vllm-feedstock with variant linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython"
+[feature.build.tasks."build-linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython.yaml --target-platform linux-64"
+description = "Build vllm-feedstock with variant linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython.yaml --target-platform linux-64"
+description = "Debug vllm-feedstock with variant linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython"
+[feature.build.tasks."build-linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313.yaml --target-platform linux-64"
+description = "Build vllm-feedstock with variant linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313.yaml --target-platform linux-64"
+description = "Debug vllm-feedstock with variant linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313"
+[feature.build.tasks."build-linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314.yaml --target-platform linux-64"
+description = "Build vllm-feedstock with variant linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314.yaml --target-platform linux-64"
+description = "Debug vllm-feedstock with variant linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314"
+[feature.build.tasks."build-linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython.yaml --target-platform linux-64"
+description = "Build vllm-feedstock with variant linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython.yaml --target-platform linux-64"
+description = "Debug vllm-feedstock with variant linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.11.____cpython"
+[feature.build.tasks."build-linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython.yaml --target-platform linux-64"
+description = "Build vllm-feedstock with variant linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython.yaml --target-platform linux-64"
+description = "Debug vllm-feedstock with variant linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.12.____cpython"
+[feature.build.tasks."build-linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313.yaml --target-platform linux-64"
+description = "Build vllm-feedstock with variant linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313.yaml --target-platform linux-64"
+description = "Debug vllm-feedstock with variant linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.13.____cp313"
+[feature.build.tasks."build-linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314.yaml --target-platform linux-64"
+description = "Build vllm-feedstock with variant linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314.yaml --target-platform linux-64"
+description = "Debug vllm-feedstock with variant linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-16vcpu-ubuntu-2404python3.14.____cp314"
+[feature.build.tasks."build-linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython.yaml --target-platform linux-aarch64"
+description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython.yaml --target-platform linux-aarch64"
+description = "Debug vllm-feedstock with variant linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython"
+[feature.build.tasks."build-linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython.yaml --target-platform linux-aarch64"
+description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython.yaml --target-platform linux-aarch64"
+description = "Debug vllm-feedstock with variant linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython"
+[feature.build.tasks."build-linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313.yaml --target-platform linux-aarch64"
+description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313.yaml --target-platform linux-aarch64"
+description = "Debug vllm-feedstock with variant linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313"
+[feature.build.tasks."build-linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314.yaml --target-platform linux-aarch64"
+description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314.yaml --target-platform linux-aarch64"
+description = "Debug vllm-feedstock with variant linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version14c_stdlib_version2.17cuda_compiler_version12.9cxx_compiler_version14github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314"
+[feature.build.tasks."build-linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython.yaml --target-platform linux-aarch64"
+description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython.yaml --target-platform linux-aarch64"
+description = "Debug vllm-feedstock with variant linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.11.____cpython"
+[feature.build.tasks."build-linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython.yaml --target-platform linux-aarch64"
+description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython.yaml --target-platform linux-aarch64"
+description = "Debug vllm-feedstock with variant linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.12.____cpython"
+[feature.build.tasks."build-linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313.yaml --target-platform linux-aarch64"
+description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313.yaml --target-platform linux-aarch64"
+description = "Debug vllm-feedstock with variant linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.13.____cp313"
+[feature.build.tasks."build-linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314.yaml --target-platform linux-aarch64"
+description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314.yaml --target-platform linux-aarch64"
+description = "Debug vllm-feedstock with variant linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version15c_stdlib_version2.17cuda_compiler_versionNonecxx_compiler_version15github_actions_labelsdefaultpython3.14.____cp314"
+[feature.build.tasks."build-linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython.yaml --target-platform linux-aarch64"
+description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython.yaml --target-platform linux-aarch64"
+description = "Debug vllm-feedstock with variant linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.11.____cpython"
+[feature.build.tasks."build-linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython.yaml --target-platform linux-aarch64"
+description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython.yaml --target-platform linux-aarch64"
+description = "Debug vllm-feedstock with variant linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.12.____cpython"
+[feature.build.tasks."build-linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313.yaml --target-platform linux-aarch64"
+description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313.yaml --target-platform linux-aarch64"
+description = "Debug vllm-feedstock with variant linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.13.____cp313"
+[feature.build.tasks."build-linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314.yaml --target-platform linux-aarch64"
+description = "Build vllm-feedstock with variant linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314 directly (without setup scripts)"
+[feature.build.tasks."debug-linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314.yaml --target-platform linux-aarch64"
+description = "Debug vllm-feedstock with variant linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314 directly (without setup scripts)"
+[feature.build.tasks."inspect-linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314.yaml"
+description = "List contents of vllm-feedstock packages built for variant linux_aarch64_c_compiler_version15c_stdlib_version2.28cuda_compiler_version13.4cxx_compiler_version15github_actions_labelsblacksmith-32vcpu-ubuntu-2404-armpython3.14.____cp314"
 [feature.build.tasks."build-osx_arm64_python3.11.____cpython"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_python3.11.____cpython.yaml"
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_python3.11.____cpython.yaml --target-platform osx-arm64"
 description = "Build vllm-feedstock with variant osx_arm64_python3.11.____cpython directly (without setup scripts)"
 [feature.build.tasks."debug-osx_arm64_python3.11.____cpython"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_python3.11.____cpython.yaml"
-description = "Build vllm-feedstock with variant osx_arm64_python3.11.____cpython directly (without setup scripts)"
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_python3.11.____cpython.yaml --target-platform osx-arm64"
+description = "Debug vllm-feedstock with variant osx_arm64_python3.11.____cpython directly (without setup scripts)"
 [feature.build.tasks."inspect-osx_arm64_python3.11.____cpython"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_python3.11.____cpython.yaml"
 description = "List contents of vllm-feedstock packages built for variant osx_arm64_python3.11.____cpython"
 [feature.build.tasks."build-osx_arm64_python3.12.____cpython"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_python3.12.____cpython.yaml"
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_python3.12.____cpython.yaml --target-platform osx-arm64"
 description = "Build vllm-feedstock with variant osx_arm64_python3.12.____cpython directly (without setup scripts)"
 [feature.build.tasks."debug-osx_arm64_python3.12.____cpython"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_python3.12.____cpython.yaml"
-description = "Build vllm-feedstock with variant osx_arm64_python3.12.____cpython directly (without setup scripts)"
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_python3.12.____cpython.yaml --target-platform osx-arm64"
+description = "Debug vllm-feedstock with variant osx_arm64_python3.12.____cpython directly (without setup scripts)"
 [feature.build.tasks."inspect-osx_arm64_python3.12.____cpython"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_python3.12.____cpython.yaml"
 description = "List contents of vllm-feedstock packages built for variant osx_arm64_python3.12.____cpython"
 [feature.build.tasks."build-osx_arm64_python3.13.____cp313"]
-cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_python3.13.____cp313.yaml"
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_python3.13.____cp313.yaml --target-platform osx-arm64"
 description = "Build vllm-feedstock with variant osx_arm64_python3.13.____cp313 directly (without setup scripts)"
 [feature.build.tasks."debug-osx_arm64_python3.13.____cp313"]
-cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_python3.13.____cp313.yaml"
-description = "Build vllm-feedstock with variant osx_arm64_python3.13.____cp313 directly (without setup scripts)"
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_python3.13.____cp313.yaml --target-platform osx-arm64"
+description = "Debug vllm-feedstock with variant osx_arm64_python3.13.____cp313 directly (without setup scripts)"
 [feature.build.tasks."inspect-osx_arm64_python3.13.____cp313"]
 cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_python3.13.____cp313.yaml"
 description = "List contents of vllm-feedstock packages built for variant osx_arm64_python3.13.____cp313"
+[feature.build.tasks."build-osx_arm64_python3.14.____cp314"]
+cmd = "rattler-build build --recipe recipe -m .ci_support/osx_arm64_python3.14.____cp314.yaml --target-platform osx-arm64"
+description = "Build vllm-feedstock with variant osx_arm64_python3.14.____cp314 directly (without setup scripts)"
+[feature.build.tasks."debug-osx_arm64_python3.14.____cp314"]
+cmd = "rattler-build debug setup --recipe recipe -m .ci_support/osx_arm64_python3.14.____cp314.yaml --target-platform osx-arm64"
+description = "Debug vllm-feedstock with variant osx_arm64_python3.14.____cp314 directly (without setup scripts)"
+[feature.build.tasks."inspect-osx_arm64_python3.14.____cp314"]
+cmd = "inspect_artifacts --recipe-dir recipe -m .ci_support/osx_arm64_python3.14.____cp314.yaml"
+description = "List contents of vllm-feedstock packages built for variant osx_arm64_python3.14.____cp314"
 
 [environments]
 build = ["build"]
