@@ -90,6 +90,7 @@ build:
 requirements:
   build:
     - cmake >=3.26.1
+    - elfutils
     - git
     - ninja
     - zlib
