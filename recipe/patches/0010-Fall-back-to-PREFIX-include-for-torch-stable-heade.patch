@@ -1,0 +1,38 @@
+From e5b6f8c35465c54f177450c51702c9be77771b71 Mon Sep 17 00:00:00 2001
+From: Lee Netherton <113526849+LeeNethertonQC@users.noreply.github.com>
+Date: Sun, 4 Oct 2026 20:24:24 +0100
+Subject: [PATCH 10/10] Fall back to PREFIX/include for torch stable header
+ check
+
+conda-forge's pytorch package de-duplicates headers against libtorch's
+$PREFIX/include and does not symlink them back into site-packages
+(conda-forge/pytorch-cpu-feedstock#447), so the file(READ ...) hotfix
+for pytorch/pytorch#190493 fails to find
+torch/csrc/stable/stableivalue_conversions.h under the Python
+package's torch/include. Fall back to libtorch's copy under
+$PREFIX/include when the site-packages one is missing.
+---
+ CMakeLists.txt | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 64de3ba..9ffb062 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -402,6 +402,13 @@ if(VLLM_GPU_LANG STREQUAL "CUDA" OR VLLM_GPU_LANG STREQUAL "HIP")
+     # delete after we bump to 2.14
+     list(GET TORCH_INCLUDE_DIRS 0 TORCH_INCLUDE_DIR)
+     set(_stable_hdr_rel "torch/csrc/stable/stableivalue_conversions.h")
++    # conda-forge's pytorch package de-duplicates headers against libtorch's
++    # $PREFIX/include and does not symlink them back into site-packages, so
++    # fall back to libtorch's copy when the site-packages one is missing.
++    if(NOT EXISTS "${TORCH_INCLUDE_DIR}/${_stable_hdr_rel}" AND
++       EXISTS "$ENV{PREFIX}/include/${_stable_hdr_rel}")
++      set(TORCH_INCLUDE_DIR "$ENV{PREFIX}/include")
++    endif()
+     file(READ "${TORCH_INCLUDE_DIR}/${_stable_hdr_rel}"
+       TORCH_STABLE_STRING_CONTENTS)
+ 
+-- 
+2.50.1 (Apple Git-155)
+

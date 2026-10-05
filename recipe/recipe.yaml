@@ -1,6 +1,6 @@
 context:
-  version: "0.27.1"
-  build_number: 2
+  version: "0.28.0"
+  build_number: 0
   use_cuda: ${{ cuda_compiler_version != "None" }}
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
   cuda_build_string: cuda${{ cuda_compiler_version | version_to_buildstring }}
@@ -13,7 +13,7 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/v/vllm/vllm-${{ version }}.tar.gz
-    sha256: eec2d54d137ac1e59cb4c39226dfee1943eefc8f4788f5821d7300d6acbdb646
+    sha256: ac96dd0ec5be9c13f2aa4bfb50498c4727110406f6e4980b58a4097e4d18634a
     patches:
       - patches/0001-Search-for-the-CUDA-package-in-CMakeLists.patch
       - patches/0002-Remove-ninja-pip-requirement.patch
@@ -25,6 +25,7 @@ source:
       - patches/0006-Fall-back-to-PREFIX-lib-for-libgomp-when-not-bundled.patch
       - patches/0007-Allow-skipping-ACL-via-VLLM_SKIP_ACL-env-var.patch
       - patches/0009-Use-PREFIX-for-CUDA-include-paths-in-DeepGEMM-build.patch
+      - patches/0010-Fall-back-to-PREFIX-include-for-torch-stable-heade.patch
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   # see https://github.com/vllm-project/vllm/blob/v{{ version }}/cmake/external_projects/vllm_flash_attn.cmake#L41
   - url: https://github.com/vllm-project/flash-attention/archive/28e862d21806bc3580207aa0ad4e2759151e9827.tar.gz
