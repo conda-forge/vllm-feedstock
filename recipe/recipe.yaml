@@ -42,7 +42,7 @@ build:
   script:
     - sed -i.bak 's/set(TORCH_SUPPORTED_VERSION_CUDA "2.4.0")/set(TORCH_SUPPORTED_VERSION_CUDA "${{ libtorch }}")/g' flash-attention/CMakeLists.txt
     - export VLLM_FLASH_ATTN_SRC_DIR=$SRC_DIR/flash-attention
-    - python use_existing_torch.py
+    - python tools/use_existing_torch.py
     - mkdir -p $SRC_DIR/third_party/NVTX/c
     - ln -s $PREFIX/include $SRC_DIR/third_party/NVTX/c/include
     - export VERBOSE=1
