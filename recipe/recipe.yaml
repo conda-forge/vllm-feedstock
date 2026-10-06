@@ -90,13 +90,15 @@ build:
 requirements:
   build:
     - cmake >=3.26.1
-    - elfutils
     - git
     - ninja
     - zlib
     - ${{ stdlib('c') }}
     - ${{ compiler('c') }}
     - ${{ compiler('cxx') }}
+    - if: linux
+      then:
+        - elfutils
     - if: use_cuda
       then:
         - ${{ compiler('cuda') }}
