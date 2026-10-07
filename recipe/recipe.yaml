@@ -1,5 +1,5 @@
 context:
-  version: "0.30.0"
+  version: "0.31.0"
   build_number: 0
   use_cuda: ${{ cuda_compiler_version != "None" }}
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
@@ -13,7 +13,7 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/v/vllm/vllm-${{ version }}.tar.gz
-    sha256: 5f8f4e890c042ffa1c3e103f81c35e2d96f60a0a175ac43a4adbae7006bef62b
+    sha256: dde46f1efbe846e5bd0c5c4ec6ec71842c42254c7ff3d9bebb2a57028715d380
     patches:
       - patches/0001-Search-for-the-CUDA-package-in-CMakeLists.patch
       - patches/0002-Remove-ninja-pip-requirement.patch
@@ -42,7 +42,7 @@ build:
   script:
     - sed -i.bak 's/set(TORCH_SUPPORTED_VERSION_CUDA "2.4.0")/set(TORCH_SUPPORTED_VERSION_CUDA "${{ libtorch }}")/g' flash-attention/CMakeLists.txt
     - export VLLM_FLASH_ATTN_SRC_DIR=$SRC_DIR/flash-attention
-    - python use_existing_torch.py
+    - python tools/use_existing_torch.py
     - mkdir -p $SRC_DIR/third_party/NVTX/c
     - ln -s $PREFIX/include $SRC_DIR/third_party/NVTX/c/include
     - export VERBOSE=1
