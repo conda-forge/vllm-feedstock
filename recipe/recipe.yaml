@@ -24,7 +24,6 @@ source:
       - patches/0005-Make-model-hosting-container-standards-optional.patch
       - patches/0006-Fall-back-to-PREFIX-lib-for-libgomp-when-not-bundled.patch
       - patches/0007-Allow-skipping-ACL-via-VLLM_SKIP_ACL-env-var.patch
-      - patches/0009-Use-PREFIX-for-CUDA-include-paths-in-DeepGEMM-build.patch
       - patches/0010-Fall-back-to-PREFIX-include-for-torch-stable-heade.patch
   # Needs to be vendored because vLLM uses a modified version of the flash attention primitives that supports KV-caching.
   # see https://github.com/vllm-project/vllm/blob/v{{ version }}/cmake/external_projects/vllm_flash_attn.cmake#L41
@@ -61,6 +60,11 @@ build:
         - export CMAKE_CUDA_ARCHITECTURES="80;86;89;90;100;120"
         # for vendored cutlass, see https://github.com/NVIDIA/cutlass/blob/v4.0.0/CMakeLists.txt
         - export CUTLASS_NVCC_ARCHS="80;86;89;90;100;120"
+        # DeepGEMM's setup.py (fetched at build time) only looks under $CUDA_HOME, but conda-forge installs
+        # CUDA headers under $PREFIX/targets/<platform>/include (incl. cccl) and libraries in $PREFIX/lib.
+        - export CONDA_PREFIX=$PREFIX
+        - export CPLUS_INCLUDE_PATH="$(echo $PREFIX/targets/*/include/cccl | cut -d' ' -f1)${CPLUS_INCLUDE_PATH:+:$CPLUS_INCLUDE_PATH}"
+        - export LIBRARY_PATH="$PREFIX/lib${LIBRARY_PATH:+:$LIBRARY_PATH}"
     # ACL (Arm Compute Library) is not packaged in conda-forge; skip it
     - if: aarch64
       then:
