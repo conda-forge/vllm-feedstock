@@ -1,5 +1,5 @@
 context:
-  version: "0.32.0"
+  version: "0.34.0"
   build_number: 0
   use_cuda: ${{ cuda_compiler_version != "None" }}
   vllm_target_device: ${{ "cuda" if use_cuda else "cpu" }}
@@ -13,7 +13,7 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/v/vllm/vllm-${{ version }}.tar.gz
-    sha256: d2c957d5eee3d0985012151315ddc62cbe0cd368fc96a5fc3510438d9dddf2ad
+    sha256: fcad848b246a9d8652b47e6425af92334dc02492f9802720f54e27b823cf0113
     patches:
       - patches/0001-Search-for-the-CUDA-package-in-CMakeLists.patch
       - patches/0002-Remove-ninja-pip-requirement.patch
