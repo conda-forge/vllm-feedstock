@@ -1,3 +1,5 @@
+DOCKER_PLATFORM:
+- linux/amd64
 c_compiler:
 - gcc
 c_compiler_version:
@@ -25,7 +27,7 @@ elfutils:
 github_actions_labels:
 - blacksmith-16vcpu-ubuntu-2404
 libtorch:
-- '2.13'
+- '2.14'
 pin_run_as_build:
   python:
     min_pin: x.x
